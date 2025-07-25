@@ -1,22 +1,221 @@
-<!doctype html>
+---
+
+export interface Props {
+	title?: string;
+}
+
+const { title = "NSK" } = Astro.props;
+---
+
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content="Portfolio designed for designers to showcase their work" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>{title}</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 	</head>
 	<body>
+		<div class="move-blob"></div>
+		<div class="background-noise"></div>
 		<slot />
 	</body>
 </html>
 
-<style>
-	html,
-	body {
+<style is:global>
+	* {
 		margin: 0;
-		width: 100%;
-		height: 100%;
+		padding: 0;
+		box-sizing: border-box;
+		z-index: 1;
 	}
+
+	html {
+		font-family: 'Inter', system-ui, sans-serif;
+		background: #0a0a0a;
+		color: #ffffff;
+		scroll-behavior: smooth;
+	}
+
+	body {
+		/*background: #0a0a0a;*/
+		position: relative;
+		line-height: 1.6;
+		overflow-x: hidden;
+		background: #121212;
+	}
+
+	.background-noise{
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background-image: url(/noise.png);
+		background-repeat: repeat;
+		background-size: 128px;
+		opacity: 0.06; /* optional, tune to your liking */
+		pointer-events: none;
+		border-radius: 0;
+		z-index: 0; /* sits above blob (z-index: 0), but below content (z-index: 1) */
+	}
+
+	.move-blob{
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 500px;
+		aspect-ratio: 1/1;
+		background: linear-gradient(
+			rgba(10, 208, 247, 0.5) 0%,
+			rgba(20, 114, 246, 0.8) 40%,
+			rgba(118, 12, 248, 0.8) 100%
+		);
+		border-radius: 30% 70% 70% 30% / 30% 40% 70% 70%;
+		filter: blur(40px);
+		z-index: -1;
+		pointer-events: none;
+		opacity: 0.25;
+		animation: changeBlob 10s linear infinite, rotateBlob 12s linear infinite, moveBlob 10s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite alternate;
+	}
+
+	@keyframes rotateBlob {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+
+	@keyframes moveBlob {
+		0%, 50%, 100% {
+			transform: translate(-50%, -50%);
+		}
+		25% {
+			transform: translate(-35%, -35%);
+		}
+		75% {
+			transform: translate(-45%, -45%);
+		}
+	}
+
+	@keyframes changeBlob {
+		0%, 100% {
+			border-radius: 30% 70% 70% 30% / 30% 40% 70% 70%;
+		}
+		20% {
+			border-radius: 40% 65% 50% 50% / 40% 35% 35% 65%;
+		}
+		40% {
+			border-radius: 35% 65% 65% 35% / 65% 50% 50% 25%;
+		}
+		60% {
+			border-radius: 40% 65% 50% 50% / 30% 30% 70% 75%;
+		}
+		80% {
+			border-radius: 40% 60% 40% 60% / 50% 50% 50% 60%;
+		}
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 2rem;
+	}
+
+	.gradient-text {
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.card {
+		background: rgba(255, 255, 255, 0.05);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-radius: 16px;
+		backdrop-filter: blur(10px);
+		transition: all 0.3s ease;
+		padding: 2rem;
+	}
+
+	.card:hover {
+		transform: translateY(-4px);
+		border-color: rgba(255, 255, 255, 0.2);
+		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+	}
+
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.75rem 1.5rem;
+		border-radius: 8px;
+		text-decoration: none;
+		font-weight: 500;
+		transition: all 0.3s ease;
+		border: none;
+		cursor: pointer;
+		font-size: 0.9rem;
+	}
+
+	.btn-primary {
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		color: white;
+	}
+
+	.btn-primary:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+	}
+
+	.btn-secondary {
+		background: rgba(255, 255, 255, 0.1);
+		color: white;
+		border: 1px solid rgba(255, 255, 255, 0.2);
+	}
+
+	.btn-secondary:hover {
+		background: rgba(255, 255, 255, 0.15);
+		transform: translateY(-2px);
+	}
+
+	.section {
+		padding: 5rem 0;
+	}
+
+	.section-title {
+		font-size: 2.5rem;
+		font-weight: 700;
+		margin-bottom: 3rem;
+		text-align: center;
+	}
+
+	@media (max-width: 768px) {
+		.container {
+			padding: 0 1rem;
+		}
+		
+		.section {
+			padding: 3rem 0;
+		}
+		
+		.section-title {
+			font-size: 2rem;
+		}
+	}
+
+	@media (max-width: 1000px) {
+		.move-blob{
+			width: 300px;
+		}
+	}
+
 </style>

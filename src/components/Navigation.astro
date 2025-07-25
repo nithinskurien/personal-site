@@ -1,0 +1,121 @@
+
+---
+---
+
+<nav class="nav">
+	<div class="container">
+		<div class="nav-content">
+			<div class="logo">
+				<span class="logo-text">NSK</span>
+			</div>
+			<ul class="nav-links">
+				<li><a href="#home">Home</a></li>
+				<li><a href="#projects">Projects</a></li>
+				<li><a href="#about">About</a></li>
+				<li><a href="#blog">Blog</a></li>
+				<li><a href="#contact">Contact</a></li>
+			</ul>
+			<button class="mobile-menu-btn" id="mobile-menu-btn">
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+		</div>
+	</div>
+</nav>
+
+<style>
+	.nav {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 1000;
+		background: rgba(10, 10, 10, 0.8);
+		backdrop-filter: blur(20px);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	.nav-content {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 1rem 0;
+	}
+
+	.logo-text {
+		font-size: 1.5rem;
+		font-weight: 700;
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.nav-links {
+		display: flex;
+		list-style: none;
+		gap: 2rem;
+		margin: 0;
+		padding: 0;
+	}
+
+	.nav-links a {
+		color: rgba(255, 255, 255, 0.8);
+		text-decoration: none;
+		font-weight: 500;
+		transition: color 0.3s ease;
+	}
+
+	.nav-links a:hover {
+		color: #667eea;
+	}
+
+	.mobile-menu-btn {
+		display: none;
+		flex-direction: column;
+		gap: 4px;
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 0.5rem;
+	}
+
+	.mobile-menu-btn span {
+		width: 24px;
+		height: 2px;
+		background: white;
+		transition: all 0.3s ease;
+	}
+
+	@media (max-width: 768px) {
+		.nav-links {
+			display: none;
+		}
+		
+		.mobile-menu-btn {
+			display: flex;
+		}
+	}
+</style>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const links = document.querySelectorAll('a[href^="#"]');
+		
+		links.forEach(link => {
+			link.addEventListener('click', (e) => {
+				e.preventDefault();
+				const targetId = link.getAttribute('href')?.substring(1);
+				const targetElement = document.getElementById(targetId || '');
+				
+				if (targetElement) {
+					targetElement.scrollIntoView({
+						behavior: 'smooth',
+						block: 'start'
+					});
+				}
+			});
+		});
+	});
+</script>

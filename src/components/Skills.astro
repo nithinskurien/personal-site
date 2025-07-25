@@ -1,0 +1,97 @@
+
+---
+---
+
+<section class="section skills">
+	<div class="container">
+		<h2 class="section-title gradient-text">Skills</h2>
+		<div class="skills-grid">
+			<div class="skill-category">
+				<h3>Design</h3>
+				<div class="skill-tags">
+					<span class="skill-tag">Figma</span>
+					<span class="skill-tag">Sketch</span>
+					<span class="skill-tag">Adobe Creative Suite</span>
+					<span class="skill-tag">Prototyping</span>
+					<span class="skill-tag">User Research</span>
+					<span class="skill-tag">Wireframing</span>
+				</div>
+			</div>
+			
+			<div class="skill-category">
+				<h3>Development</h3>
+				<div class="skill-tags">
+					<span class="skill-tag">HTML/CSS</span>
+					<span class="skill-tag">JavaScript</span>
+					<span class="skill-tag">React</span>
+					<span class="skill-tag">Vue.js</span>
+					<span class="skill-tag">Node.js</span>
+					<span class="skill-tag">TypeScript</span>
+				</div>
+			</div>
+			
+			<div class="skill-category">
+				<h3>Tools</h3>
+				<div class="skill-tags">
+					<span class="skill-tag">Git</span>
+					<span class="skill-tag">Jira</span>
+					<span class="skill-tag">Slack</span>
+					<span class="skill-tag">Notion</span>
+					<span class="skill-tag">Miro</span>
+					<span class="skill-tag">Zeplin</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.skills {
+		background: rgba(0, 0, 0, 0.3);
+	}
+
+	.skills-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 3rem;
+		max-width: 1000px;
+		margin: 0 auto;
+	}
+
+	.skill-category h3 {
+		font-size: 1.5rem;
+		font-weight: 600;
+		margin-bottom: 1.5rem;
+		color: white;
+	}
+
+	.skill-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+	}
+
+	.skill-tag {
+		background: rgba(255, 255, 255, 0.1);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		border-radius: 20px;
+		padding: 0.5rem 1rem;
+		font-size: 0.9rem;
+		color: rgba(255, 255, 255, 0.8);
+		transition: all 0.3s ease;
+	}
+
+	.skill-tag:hover {
+		background: rgba(102, 126, 234, 0.2);
+		border-color: #667eea;
+		color: white;
+		transform: translateY(-2px);
+	}
+
+	@media (max-width: 768px) {
+		.skills-grid {
+			grid-template-columns: 1fr;
+			gap: 2rem;
+		}
+	}
+</style>

@@ -1,0 +1,111 @@
+---
+---
+
+<section id="about" class="section experience">
+	<div class="container">
+		<h2 class="section-title gradient-text">Experience</h2>
+		<div class="experience-list">
+			<div class="experience-item">
+				<div class="experience-period">
+					<span>Jan 2020 - Present</span>
+				</div>
+				<div class="experience-content">
+					<h3>Design Lead</h3>
+					<p class="company">TechCorp Inc.</p>
+					<p class="description">Leading design initiatives for enterprise software solutions, managing a team of 5 designers, and establishing design systems across multiple products.</p>
+				</div>
+			</div>
+			
+			<div class="experience-item">
+				<div class="experience-period">
+					<span>Mar 2018 - Dec 2019</span>
+				</div>
+				<div class="experience-content">
+					<h3>Lead UX/UI Designer</h3>
+					<p class="company">StartupXYZ</p>
+					<p class="description">Designed user experiences for mobile and web applications, conducted user research, and collaborated with development teams to implement design solutions.</p>
+				</div>
+			</div>
+			
+			<div class="experience-item">
+				<div class="experience-period">
+					<span>Jun 2016 - Feb 2018</span>
+				</div>
+				<div class="experience-content">
+					<h3>Design Director</h3>
+					<p class="company">Creative Agency</p>
+					<p class="description">Directed creative projects for various clients, managed design workflows, and mentored junior designers in best practices and design methodologies.</p>
+				</div>
+			</div>
+			
+			<div class="experience-item">
+				<div class="experience-period">
+					<span>Jan 2014 - May 2016</span>
+				</div>
+				<div class="experience-content">
+					<h3>Co-Founder</h3>
+					<p class="company">Design Studio</p>
+					<p class="description">Co-founded a design studio specializing in brand identity and digital experiences. Built the company from ground up and established key client relationships.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.experience-list {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	.experience-item {
+		display: grid;
+		grid-template-columns: 200px 1fr;
+		gap: 3rem;
+		padding: 2rem 0;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	.experience-item:last-child {
+		border-bottom: none;
+	}
+
+	.experience-period {
+		color: rgba(255, 255, 255, 0.6);
+		font-size: 0.9rem;
+		font-weight: 500;
+	}
+
+	.experience-content h3 {
+		font-size: 1.5rem;
+		font-weight: 600;
+		margin-bottom: 0.5rem;
+		color: white;
+	}
+
+	.company {
+		color: #667eea;
+		font-weight: 500;
+		margin-bottom: 1rem;
+	}
+
+	.description {
+		color: rgba(255, 255, 255, 0.7);
+		line-height: 1.6;
+	}
+
+	@media (max-width: 768px) {
+		.experience-item {
+			grid-template-columns: 1fr;
+			gap: 1rem;
+		}
+		
+		.experience-period {
+			order: 2;
+		}
+		
+		.experience-content {
+			order: 1;
+		}
+	}
+</style>
