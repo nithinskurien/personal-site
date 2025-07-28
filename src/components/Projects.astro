@@ -110,17 +110,25 @@
         border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
+
 	.projects-grid {
-		display: grid;
+		display: flex;
+		flex-direction: column;
+		height: min-content;
 		gap: 2rem;
 		max-width: 800px;
 		margin: 0 auto;
+		scroll-margin-top: 20px;
+		transform: perspective(1200px);
 	}
 
 	.project-card {
-		background: rgba(255, 255, 255, 0.05);
+		position: sticky;
+		top: 20vh;
+		background: rgb(30, 30, 30);
 		border: 1px solid rgba(255, 255, 255, 0.1);
 		border-radius: 20px;
+		height: 400px;
 		padding: 2rem;
 		display: grid;
 		grid-template-columns: 1fr 1fr;
@@ -128,13 +136,11 @@
 		align-items: center;
 		transition: all 0.3s ease;
 		backdrop-filter: blur(10px);
-	}
-
-	.project-card:hover {
-		transform: translateY(-4px);
-		border-color: rgba(255, 255, 255, 0.2);
+		will-change: transform, opacity;
+		overflow: hidden;
 		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 	}
+
 
 	.project-content h3 {
 		font-size: 1.5rem;
@@ -163,6 +169,7 @@
 	.project-visual {
 		display: flex;
 		flex-direction: column;
+		flex-wrap: nowrap;
 		gap: 1rem;
 	}
 
@@ -171,6 +178,7 @@
 		border-radius: 12px;
 		overflow: hidden;
 		position: relative;
+		object-fit: cover;
 	}
 
 	.gradient-bg {
@@ -211,3 +219,32 @@
 		}
 	}
 </style>
+
+<script type="module">
+
+  const cards = document.querySelectorAll(".project-card");
+
+  window.addEventListener("scroll", () => {
+    const scrollTop = window.scrollY;
+    const windowHeight = window.innerHeight;
+
+    cards.forEach((card, index) => {
+      const triggerPoint = index * windowHeight;
+	  const nextTrigger = (index + 1) * card.offsetHeight;
+	  const scaleFactor = 35
+	  const top = 24 * index;
+	  const offset = (scrollTop - triggerPoint) / windowHeight;
+	  card.style.top = `calc(20vh + ${top}px)`;
+	  let scale = 0.9
+	  
+	  if (scrollTop >= triggerPoint && scrollTop < nextTrigger) {
+        scale = 1;
+      } else {
+        scale = 1 - Math.min(Math.max(offset / scaleFactor, 0), 0.1)
+        card.classList.remove("active");
+      }
+      card.style.transform = `scale(${scale})`;
+
+    });
+  });
+</script>
