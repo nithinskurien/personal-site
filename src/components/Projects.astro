@@ -1,16 +1,25 @@
-
 ---
+import { getCollection} from "astro:content";
+
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => a.data.priority.valueOf() - b.data.priority.valueOf(),
+);
+
 ---
 
 <section id="projects" class="section projects">
 	<div class="container">
 		<h2 class="section-title gradient-text">Featured Projects</h2>
 		<div class="projects-grid">
-			<div class="project-card">
+
+			 {projects.map(project => (
+
+				<div class="project-card">
 				<div class="project-content">
-					<h3>Modernizing a Subscription Management Platform</h3>
-					<p>Designed and developed a comprehensive subscription management platform that helps businesses track and optimize their recurring revenue streams.</p>
-					<a href="#" class="project-link">View case study</a>
+					<h3>{project.data.title}</h3>
+					<p>{project.data.description}</p>
+					<a href=`/projects/${project.id}` class="project-link">View case study</a>
 				</div>
 				<div class="project-visual">
 					<div class="project-image">
@@ -28,75 +37,8 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="project-card">
-				<div class="project-content">
-					<h3>Redesigning an E-Commerce Website</h3>
-					<p>Complete redesign of an e-commerce platform focusing on user experience, conversion optimization, and mobile responsiveness.</p>
-					<a href="#" class="project-link">View case study</a>
-				</div>
-				<div class="project-visual">
-					<div class="project-image">
-						<div class="gradient-bg" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
-					</div>
-					<div class="project-stats">
-						<div class="stat">
-							<span class="stat-number">85%</span>
-							<span class="stat-label">Conversion Rate</span>
-						</div>
-						<div class="stat">
-							<span class="stat-number">76%</span>
-							<span class="stat-label">User Satisfaction</span>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="project-card">
-				<div class="project-content">
-					<h3>Developing a Mobile Health Tracking App</h3>
-					<p>Created a comprehensive health tracking application that helps users monitor their fitness goals and maintain healthy habits.</p>
-					<a href="#" class="project-link">View case study</a>
-				</div>
-				<div class="project-visual">
-					<div class="project-image">
-						<div class="gradient-bg" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
-					</div>
-					<div class="project-stats">
-						<div class="stat">
-							<span class="stat-number">12%</span>
-							<span class="stat-label">Health Improvement</span>
-						</div>
-						<div class="stat">
-							<span class="stat-number">4.8*</span>
-							<span class="stat-label">App Store Rating</span>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="project-card">
-				<div class="project-content">
-					<h3>Optimizing a Corporate Intranet</h3>
-					<p>Redesigned and optimized a corporate intranet system to improve employee productivity and internal communication.</p>
-					<a href="#" class="project-link">View case study</a>
-				</div>
-				<div class="project-visual">
-					<div class="project-image">
-						<div class="gradient-bg" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);"></div>
-					</div>
-					<div class="project-stats">
-						<div class="stat">
-							<span class="stat-number">20%</span>
-							<span class="stat-label">Productivity Increase</span>
-						</div>
-						<div class="stat">
-							<span class="stat-number">95%</span>
-							<span class="stat-label">Employee Satisfaction</span>
-						</div>
-					</div>
-				</div>
-			</div>
+				
+  ))}
 		</div>
 	</div>
 </section>
@@ -128,7 +70,7 @@
 		background: rgb(30, 30, 30);
 		border: 1px solid rgba(255, 255, 255, 0.1);
 		border-radius: 20px;
-		height: 400px;
+		min-height: 400px;
 		padding: 2rem;
 		display: grid;
 		grid-template-columns: 1fr 1fr;

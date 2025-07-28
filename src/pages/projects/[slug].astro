@@ -1,0 +1,23 @@
+---
+import { getCollection} from "astro:content";
+import { AstroError } from "astro/errors";
+import { Markdown } from 'astro/components';
+
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => b.data.priority.valueOf() - a.data.priority.valueOf(),
+);
+---
+
+<html>
+  <head>
+    <title>{data.title}</title>
+  </head>
+  <body>
+    <article>
+      <h1>{data.title}</h1>
+      {data.image && <img src={data.image} alt={data.title} />}
+      <Markdown content={body} />
+    </article>
+  </body>
+</html>
