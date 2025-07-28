@@ -20,7 +20,6 @@ const { title = "NSK" } = Astro.props;
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 		<div class="background-noise"></div>
-
 		<div class="gradient-bubble-bg">
 			<svg xmlns="http://www.w3.org/2000/svg">
 				<defs>
@@ -76,70 +75,12 @@ const { title = "NSK" } = Astro.props;
 		height: 100vh;
 		background-image: url(/noise.png);
 		background-repeat: repeat;
-		background-size: 128px;
-		opacity: 0.06; /* optional, tune to your liking */
+		background-size: 64px;
+		backdrop-filter: blur(3px); 
+		opacity: 0.1; /* optional, tune to your liking */
 		pointer-events: none;
 		border-radius: 0;
 		z-index: 0; /* sits above blob (z-index: 0), but below content (z-index: 1) */
-	}
-
-	.move-blob{
-		position: fixed;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		width: 500px;
-		aspect-ratio: 1/1;
-		background: linear-gradient(
-			rgba(10, 208, 247, 0.5) 0%,
-			rgba(20, 114, 246, 0.8) 40%,
-			rgba(118, 12, 248, 0.8) 100%
-		);
-		border-radius: 30% 70% 70% 30% / 30% 40% 70% 70%;
-		filter: blur(40px);
-		z-index: -1;
-		pointer-events: none;
-		opacity: 0.25;
-		animation: changeBlob 10s linear infinite, rotateBlob 12s linear infinite, moveBlob 10s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite alternate;
-	}
-
-	@keyframes rotateBlob {
-		0% {
-			transform: rotate(0deg);
-		}
-		100% {
-			transform: rotate(360deg);
-		}
-	}
-
-	@keyframes moveBlob {
-		0%, 50%, 100% {
-			transform: translate(-50%, -50%);
-		}
-		25% {
-			transform: translate(-35%, -35%);
-		}
-		75% {
-			transform: translate(-45%, -45%);
-		}
-	}
-
-	@keyframes changeBlob {
-		0%, 100% {
-			border-radius: 30% 70% 70% 30% / 30% 40% 70% 70%;
-		}
-		20% {
-			border-radius: 40% 65% 50% 50% / 40% 35% 35% 65%;
-		}
-		40% {
-			border-radius: 35% 65% 65% 35% / 65% 50% 50% 25%;
-		}
-		60% {
-			border-radius: 40% 65% 50% 50% / 30% 30% 70% 75%;
-		}
-		80% {
-			border-radius: 40% 60% 40% 60% / 50% 50% 50% 60%;
-		}
 	}
 
 	.container {
@@ -236,23 +177,6 @@ const { title = "NSK" } = Astro.props;
 		}
 	}
 
-	.text-container {
-  z-index: 100;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  position: absolute;
-  top: 0;
-  left: 0;
-  justify-content: center;
-  align-items: center;
-  font-size: 96px;
-  color: white;
-  opacity: 0.8;
-  user-select: none;
-  text-shadow: 1px 1px rgba(0,0,0,0.1);
-}
-
 :root {
   --color-bg1: rgb(108, 0, 162);
   --color-bg2: rgb(0, 17, 82);
@@ -311,7 +235,7 @@ const { title = "NSK" } = Astro.props;
   background: linear-gradient(40deg, var(--color-bg1), var(--color-bg2));
   top: 0;
   left: 0;
-  opacity: 0.1;
+  opacity: 0.09;
   z-index: -1;
 
   svg {

@@ -43,10 +43,17 @@
 	}
 
 	.container {
+		background: transparent;
+		backdrop-filter: none;
+		border-bottom: 1px solid transparent;
+		border-radius: 48px;
+		transition: all 0.3s ease;
+	}
+
+	.container.scrolled {
 		background: rgba(10, 10, 10, 0.8);
 		backdrop-filter: blur(20px);
 		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-		border-radius: 48px;
 	}
 
 	.nav-content {
@@ -170,6 +177,20 @@
 
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
+
+		const container = document.querySelector('.container');
+		const scrollThreshold = 100; // Distance in pixels to trigger the effect
+
+		// Scroll event listener
+		window.addEventListener('scroll', () => {
+			const scrollY = window.scrollY;
+			
+			if (scrollY > scrollThreshold) {
+				container?.classList.add('scrolled');
+			} else {
+				container?.classList.remove('scrolled');
+			}
+		});
 
 		// Mobile menu functionality
 		const mobileMenuBtn = document.getElementById('mobile-menu-btn');
