@@ -1,4 +1,5 @@
 ---
+import StatBadge from '../components/StatBadge.astro';
 import ToolCarousel from '../components/ToolCarousel.astro';
 
 interface Stat {
@@ -84,10 +85,7 @@ const {
 			<div class="container">
 				<div class="stats-grid">
 					{stats.map(stat => (
-						<div class="stat-card">
-							<div class="stat-number">{stat.value}</div>
-							<div class="stat-label">{stat.label}</div>
-						</div>
+						<StatBadge label={stat.label} value={stat.value}/>
 					))}
 				</div>
 			</div>

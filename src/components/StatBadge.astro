@@ -1,0 +1,75 @@
+---
+const { value, label } = Astro.props;
+const match = value.match(/^([\d,.]+)\s*(\D*)$/);
+console.log(match)
+const targetNumber = match ? parseInt(match[1].replace(/,/g, '')) : 0;
+const unit = match ? match[2] : '';
+---
+
+<div class="stat-badge" data-target={targetNumber}>
+  <span class="countup">0</span> <span class="unit">{unit}</span>
+  <div class="label">{label}</div>
+</div>
+
+<style>
+
+.stat-badge {
+  font-size: 3rem;
+  font-weight: bold;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+}
+
+.stat-badge.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.countup {
+  display: inline-block;
+}
+
+.unit {
+  color: #888;
+  font-weight: normal;
+}
+
+.label {
+  font-size: 1rem;
+  color: #666;
+  font-style: italic;
+}
+
+</style>
+
+<script type="module">
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = +el.dataset.target;
+        const countEl = el.querySelector('.countup');
+        el.classList.add('visible');
+        const duration = 1200;
+        const startTime = performance.now();
+
+        function animate(now) {
+          const progress = Math.min((now - startTime) / duration, 1);
+          const value = Math.floor(progress * target);
+          countEl.textContent = value.toLocaleString();
+          if (progress < 1) {
+            requestAnimationFrame(animate);
+          } else {
+            countEl.textContent = target.toLocaleString();
+          }
+        }
+
+        requestAnimationFrame(animate);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.stat-badge').forEach(el => observer.observe(el));
+</script>
