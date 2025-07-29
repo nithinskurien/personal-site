@@ -1,7 +1,4 @@
 ---
-import Navigation from '../components/Navigation.astro';
-import Footer from '../components/Footer.astro';
-import Layout from './Layout.astro';
 import ToolCarousel from '../components/ToolCarousel.astro';
 
 interface Stat {
@@ -57,32 +54,34 @@ const {
 				<div class="hero-image">
 					<div class="gradient-bg" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);"></div>
 				</div>
-				<div class="project-meta">
-					<div class="meta-item"><h3>Role</h3><p>{role}</p></div>
-					<div class="meta-item"><h3>Company</h3><p>{company}</p></div>
-					<div class="meta-item"><h3>Industry</h3><p>{industry}</p></div>
-					<div class="meta-item"><h3>Employees</h3><p>{employees}</p></div>
-				</div>
 			</div>
 		</section>
 
 		<!-- Challenge -->
 		<section class="project-section">
-			<div class="container">
-				<div class="section-content">
-					<h2>Challenge</h2>
-					<p>{challenge}</p>
+			<div class="container project-metadata">
+                <div class="project-meta">
+					<div class="meta-item"><h3>Role</h3><p>{role}</p></div>
+					<div class="meta-item"><h3>Company</h3><p>{company}</p></div>
+					<div class="meta-item"><h3>Industry</h3><p>{industry}</p></div>
+					<div class="meta-item"><h3>Employees</h3><p>{employees}</p></div>
 				</div>
+                <div class="project-meta-text">
+                    <div class="section-content">
+                        <h2>Challenge</h2>
+                        <p>{challenge}</p>
+                    </div>
+                    <div class="section-content">
+                        <h2>Results</h2>
+                        <p>{results}</p>
+                    </div>
+                </div>
 			</div>
 		</section>
 
 		<!-- Results -->
 		<section class="project-section">
 			<div class="container">
-				<div class="section-content">
-					<h2>Results</h2>
-					<p>{results}</p>
-				</div>
 				<div class="stats-grid">
 					{stats.map(stat => (
 						<div class="stat-card">
@@ -95,9 +94,9 @@ const {
 		</section>
 
 		<!-- Process -->
-		<section class="project-section">
+		<section class="project-section conclusion">
 			<div class="container">
-				<h2 class="section-title">Process</h2>
+				<h2 class="section-title ">Process</h2>
 				<div class="process-steps">
 					{process.map(step => (
 						<div class="process-step">
@@ -114,10 +113,10 @@ const {
 
 		<!-- Conclusion -->
 		<section class="project-section conclusion">
-			<div class="container">
+            <div class="container">
 				<h2 class="section-title">Conclusion</h2>
 				<p>{conclusion}</p>
-			</div>
+            </div>
 		</section>
 	</main>
     </div>
@@ -131,16 +130,33 @@ const {
 
 	.project-page {
 		padding-top: 80px;
+        max-width: 800px;
+        margin-inline: auto;
 	}
 
+    .project-metadata {
+        align-items: flex-start;
+        display: flex;
+        flex: 0 0 auto;
+        flex-flow: row;
+        gap: 50px;
+        position: relative;
+        overflow: visible;
+    }
+
+    .project-meta-text {
+        display: flex;
+        flex-flow: column;
+        gap: 50px
+    }
+
 	.project-hero {
-		padding: 4rem 0;
+		padding-top: 4rem;
 		background: radial-gradient(ellipse at center, rgba(168, 237, 234, 0.1) 0%, transparent 70%);
 	}
 
 	.project-header {
 		text-align: center;
-		max-width: 800px;
 		margin: 0 auto 3rem;
 	}
 
@@ -176,7 +192,6 @@ const {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 		gap: 2rem;
-		margin-top: 3rem;
 	}
 
 	.meta-item h3 {
@@ -193,20 +208,11 @@ const {
 	}
 
 	.project-section {
-		padding: 4rem 0;
+		padding: 2rem 0;
 	}
 
 	.section-content {
-		max-width: 800px;
 		margin: 0 auto;
-	}
-
-	.section-content h2,
-	.section-title {
-		font-size: 2rem;
-		font-weight: 700;
-		margin-bottom: 2rem;
-		color: white;
 	}
 
 	.section-content p {
@@ -220,6 +226,7 @@ const {
 		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 		gap: 2rem;
 		margin-top: 3rem;
+        margin-inline: auto ;
 	}
 
 	.stat-card {
@@ -261,7 +268,6 @@ const {
 	}
 
 	.process-steps {
-		max-width: 800px;
 		margin: 0 auto;
 	}
 
@@ -369,9 +375,8 @@ const {
 	}
 
 	.conclusion {
-		max-width: 800px;
 		margin: 0 auto;
-		text-align: center;
+		text-align: left;
 	}
 
 	.conclusion p {
