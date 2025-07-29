@@ -57,8 +57,8 @@ const projects = (await getCollection('projects')).sort(
 		display: flex;
 		flex-direction: column;
 		height: min-content;
+		max-width: 1000px;
 		gap: 2rem;
-		max-width: 800px;
 		margin: 0 auto;
 		scroll-margin-top: 20px;
 		transform: perspective(1200px);
@@ -67,11 +67,12 @@ const projects = (await getCollection('projects')).sort(
 	.project-card {
 		position: sticky;
 		top: 20vh;
+		padding: 4rem;
+		margin: 1rem;
 		background: rgb(30, 30, 30);
 		border: 1px solid rgba(255, 255, 255, 0.1);
 		border-radius: 20px;
-		min-height: 400px;
-		padding: 2rem;
+		min-height: 500px;
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		gap: 2rem;

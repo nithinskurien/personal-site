@@ -1,0 +1,86 @@
+---
+
+interface Props {
+  tools: Array<string>;
+}
+
+const { tools } = Astro.props as Props;
+
+const icons = await Promise.all(
+  tools.map(async (tool) => {
+    try {
+      const icon = await import(`../assets/icons/${tool}.svg`);
+      return { name: tool, src: icon.default };
+    } catch (e) {
+      console.warn(`Icon for ${tool} not found`);
+      return null;
+    }
+  })
+  );
+const validIcons = icons.filter((i): i is { name: string; src: any } => i !== null);
+---
+<style>
+
+  .container-section {
+    padding-top: 8rem;
+    padding-left: 8rem;
+    padding-right: 8rem;
+    width: 100%;
+
+  }
+
+  .carousel-container {
+    overflow: hidden;
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    place-items: center;
+    mask-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 12.5%, rgb(0, 0, 0) 87.5%, rgba(0, 0, 0, 0) 100%);
+  }
+
+  .carousel-track {
+    display: flex;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    animation: scroll 60s linear infinite;
+   
+  }
+
+  .carousel-track:hover {
+    animation-play-state: paused;
+  }
+
+  .carousel-icon:hover {
+    transform: scale(1.2);
+    transition: all 0.3s ease;
+  }
+
+  .carousel-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 2.5rem;
+    flex-shrink: 0;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+</style>
+<div class="container-section">
+<div class="carousel-container">
+  <div class="carousel-track">
+    {validIcons.map(({ name, src }) => (
+      <img src={src.src} alt={name} class="carousel-icon" />
+    ))}
+    {validIcons.map(({ name, src }) => (
+      <img src={src.src} alt={`${name}-clone`} class="carousel-icon" />
+    ))}
+  </div>
+</div>
+</div>

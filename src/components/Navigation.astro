@@ -1,5 +1,11 @@
-
 ---
+const isHome = Astro.url.pathname === '/';
+const prefix = isHome ? '' : '/';
+const navLinks = [
+  { href: '#home', label: 'Home' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#experience', label: 'Experience' }
+];
 ---
 
 <nav class="nav">
@@ -9,18 +15,19 @@
 				<span class="logo-text">|\|5|&#123</span>
 			</div>
 			<ul class="nav-links">
-				<li><a href="#home">Home</a></li>
-				<li><a href="#projects">Projects</a></li>
-				<li><a href="#experience">Experience</a></li>
-				<li><a href="#contact">Contact</a></li>
+				 {navLinks.map(link => (
+   					 <li><a href={`${prefix}${link.href}`}>{link.label}</a></li>
+  					))}
+				 <li><a href="https://www.linkedin.com/in/nithinskurien/">Contact</a></li>
+					
 			</ul>
 			<div class="mobile-menu">
-				<ul class="mobile-nav-links">
-					<li><a href="#home">Home</a></li>
-					<li><a href="#projects">Projects</a></li>
-					<li><a href="#experience">Experience</a></li>
-					<li><a href="#contact">Contact</a></li>
-				</ul>
+				<ul class="nav-links">
+				 {navLinks.map(link => (
+   					 <li><a href={`${prefix}${link.href}`}>{link.label}</a></li>
+  					))}
+				<li><a href="https://www.linkedin.com/in/nithinskurien/">Contact</a></li>
+			</ul>
 			</div>
 			<button class="mobile-menu-btn" id="mobile-menu-btn">
 				<span></span>
