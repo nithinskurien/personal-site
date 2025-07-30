@@ -3,24 +3,32 @@
     "period": "2023 - Present",
     "title": "Senior Software Engineer",
     "company": "Volvo Cars",
-    "description": "Leading design initiatives for enterprise software solutions, managing a team of 5 designers, and establishing design systems across multiple products."
+    "description": [
+      "Architected & delivered a global analytics pipeline that processes 30 million daily mobile app events, building the complete backend flow from applications to Snowflake across multiple regions. I automated developer tooling that reduced App Gateway integration time from hours to minutes. I also built backend services for user market management for adhering to compliance, established monitoring with Grafana and Elastic logs, and coordinated cross-functional teams to ensure successful production rollout. I also conducted stakeholder presentations, carried out cost analysis to secure buy-in, planned and co-ordinated across multiple team for a timely, cost-effective delivery."
+    ]
   },
   {
     "period": "2021 - 2023",
     "title": "Software Engineer",
     "company": "Kry",
-    "description": "Designed user experiences for mobile and web applications, conducted user research, and collaborated with development teams to implement design solutions."
+    "description": [
+      "Developed core backend and frontend features for an authorization system serving 3,000 clinicians and 6M+ patients, handling 1,500 requests per second. I built monitoring and recovery tools to maintain system continuity during outages and led the backend implementation of a critical national integration that connected clinicians to Sweden's prescription system across all regions. This integration increased clinician productivity by 25% and was the first successful connection to the national platform. I also established comprehensive observability with Datadog dashboards and alerts, while collaborating cross-functionally with product, compliance, and clinician teams to ensure patient priority and clinician workflow alignment in all solutions."
+    ]
   },
   {
     "period": "2017 - 2021",
     "title": "Software Engineer",
     "company": "Ericsson",
-    "description": "Directed creative projects for various clients, managed design workflows, and mentored junior designers in best practices and design methodologies."
+    "description": [
+      "Developed baseband features for 3G/5G technologies, working on performance-critical L1/L2 stack components including UPC, DRA, and UL/DL chains. I automated a manual network audit process using image analysis, reducing execution time by 20X and contributing to a major customer purchase decision. I contributed to an award-winning demo at MWC 2019 through cross-functional collaboration on system integration and enhanced an internal Eclipse debugging plugin used by Ericsson engineers. I served on a troubleshooting task force for AIR radios, ensuring 2-hour response times and improving diagnostic accuracy, while also expanding the JCAT test framework and contributing to RX/TX chain development for radio systems through collaboration with hardware and systems teams."
+    ]
   },
   {
     "period": "2010 - 2012",
     "title": "Test Engineer",
     "company": "Infosys",
-    "description": "Co-founded a design studio specializing in brand identity and digital experiences. Built the company from ground up and established key client relationships."
+    "description": [
+      "Gained foundational proficiency in C, Java, SQL, UNIX, and HTML through structured training programs, along with advanced functional and non-functional testing methodologies. I tested critical features of Finnacle, a proprietary banking platform serving 1.7 billion customers globally, executing both manual and automated test cases using an in-house framework. I improved product quality by identifying, documenting, and tracking bugs through resolution using industry-standard QA processes, while creating reusable test cases based on functional documentation. I ensured cross-team alignment by participating in review meetings with QA, development, and functional teams to validate test coverage and delivery requirements."
+    ]
   }
 ]
