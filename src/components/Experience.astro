@@ -1,53 +1,51 @@
 ---
+import experiences from '../content/experiences/experiences.json';
+import type { ImageMetadata } from 'astro';
+
+const iconMap: Record<string, ImageMetadata> = {};
+
+// Load all icons (lazy importers)
+const importers = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/icons/*.{png,svg}', 
+  { eager: false }
+)
+// Preload all modules upfront using Promise.all with top-level await
+const modules = await Promise.all(
+  experiences.map(item => {
+    const key = `/src/assets/icons/${item.company}.svg`;
+    const importer = importers[key];
+    if (!importer) {
+      console.warn(`Icon not found for ${item.company}, using fallback.`);
+      return null;
+    }
+    return importer();
+  })
+);
+// Map company icons to default image metadata
+modules.forEach((mod, i) => {
+  if (mod) {
+    iconMap[experiences[i].company] = mod.default;
+  }
+});
 ---
 
 <section id="experience" class="section experience">
-	<div class="container">
+	<div class="container container-border">
 		<h2 class="section-title gradient-text">Experience</h2>
 		<div class="experience-list">
-			<div class="experience-item">
-				<div class="experience-period">
-					<span>Jan 2020 - Present</span>
+			{experiences.map((item) => (
+				<div class="experience-item">
+					<div class="experience-period">
+						<img src= {iconMap[item.company].src} alt={item.company} class="experience-icon"/>
+					</div>
+					<div class="experience-content">
+						<h3>{item.title}</h3>
+						<span>{item.period}</span>
+						<p class="description">{item.description}</p>
+					</div>
 				</div>
-				<div class="experience-content">
-					<h3>Design Lead</h3>
-					<p class="company">TechCorp Inc.</p>
-					<p class="description">Leading design initiatives for enterprise software solutions, managing a team of 5 designers, and establishing design systems across multiple products.</p>
-				</div>
-			</div>
-			
-			<div class="experience-item">
-				<div class="experience-period">
-					<span>Mar 2018 - Dec 2019</span>
-				</div>
-				<div class="experience-content">
-					<h3>Lead UX/UI Designer</h3>
-					<p class="company">StartupXYZ</p>
-					<p class="description">Designed user experiences for mobile and web applications, conducted user research, and collaborated with development teams to implement design solutions.</p>
-				</div>
-			</div>
-			
-			<div class="experience-item">
-				<div class="experience-period">
-					<span>Jun 2016 - Feb 2018</span>
-				</div>
-				<div class="experience-content">
-					<h3>Design Director</h3>
-					<p class="company">Creative Agency</p>
-					<p class="description">Directed creative projects for various clients, managed design workflows, and mentored junior designers in best practices and design methodologies.</p>
-				</div>
-			</div>
-			
-			<div class="experience-item">
-				<div class="experience-period">
-					<span>Jan 2014 - May 2016</span>
-				</div>
-				<div class="experience-content">
-					<h3>Co-Founder</h3>
-					<p class="company">Design Studio</p>
-					<p class="description">Co-founded a design studio specializing in brand identity and digital experiences. Built the company from ground up and established key client relationships.</p>
-				</div>
-			</div>
+			)
+		)}
 		</div>
 	</div>
 </section>
@@ -57,13 +55,8 @@
     .experience {
         background: rgba(0, 0, 0, 0.3);
     }
-
-    .section-title{
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
     
 	.experience-list {
-		max-width: 800px;
 		margin: 0 auto;
 	}
 
@@ -74,6 +67,14 @@
 		padding: 2rem 0;
 		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 	}
+
+	.experience-icon {
+		width: 100px;
+		height: 75px;
+		margin: 1rem;
+		margin-left: 2rem;
+		flex-shrink: 0;
+  	}
 
 	.experience-item:last-child {
 		border-bottom: none;
@@ -93,7 +94,8 @@
 	}
 
 	.company {
-		color: #667eea;
+		color: #b3b3b3;
+		font-size: 1.2rem;
 		font-weight: 500;
 		margin-bottom: 1rem;
 	}
@@ -107,7 +109,12 @@
 		.experience-item {
 			grid-template-columns: 1fr;
 			gap: 1rem;
+			padding: 0 0;
 		}
+
+		.experience-icon {
+			margin-left: 0rem;
+  		}
 		
 		.experience-period {
 			order: 2;

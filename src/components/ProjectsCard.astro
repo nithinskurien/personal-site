@@ -9,7 +9,7 @@ const projects = (await getCollection('projects')).sort(
 ---
 
 <section id="projects" class="section projects">
-	<div class="container">
+	<div class="container container-border">
 		<h2 class="section-title gradient-text">Featured Projects</h2>
 		<div class="projects-grid">
 
@@ -47,10 +47,6 @@ const projects = (await getCollection('projects')).sort(
 	.projects {
 		background: rgba(0, 0, 0, 0.3);
 	}
-
-    .section-title{
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
 
 
 	.projects-grid {

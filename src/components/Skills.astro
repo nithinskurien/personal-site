@@ -1,48 +1,24 @@
 ---
 import ToolCarousel from "./ToolCarousel.astro";
+import skills from "../content/skills/skills.json"
 
 ---
 
 <section class="section skills">
-	<div class="container">
+	<div class="container container-border">
 		<h2 class="section-title gradient-text">Skills</h2>
 		<div class="skills-grid">
-			<div class="skill-category">
-				<h3>Design</h3>
-				<div class="skill-tags">
-					<span class="skill-tag">Figma</span>
-					<span class="skill-tag">Sketch</span>
-					<span class="skill-tag">Adobe Creative Suite</span>
-					<span class="skill-tag">Prototyping</span>
-					<span class="skill-tag">User Research</span>
-					<span class="skill-tag">Wireframing</span>
-				</div>
-			</div>
-			
-			<div class="skill-category">
-				<h3>Development</h3>
-				<div class="skill-tags">
-					<span class="skill-tag">HTML/CSS</span>
-					<span class="skill-tag">JavaScript</span>
-					<span class="skill-tag">React</span>
-					<span class="skill-tag">Vue.js</span>
-					<span class="skill-tag">Node.js</span>
-					<span class="skill-tag">TypeScript</span>
-				</div>
-			</div>
-			
-			<div class="skill-category">
-				<h3>Tools</h3>
-				<div class="skill-tags">
-					<span class="skill-tag">Git</span>
-					<span class="skill-tag">Jira</span>
-					<span class="skill-tag">Slack</span>
-					<span class="skill-tag">Notion</span>
-					<span class="skill-tag">Miro</span>
-					<span class="skill-tag">Zeplin</span>
-				</div>
+	{skills.map((group) => (
+		<div class="skill-category">
+			<h3>{group.category}</h3>
+			<div class="skill-tags">
+				{group.skills.map((skill) => (
+					<span class="skill-tag">{skill}</span>
+				))}
 			</div>
 		</div>
+	))}
+</div>
 	<ToolCarousel tools={["Java", "Python", "JavaScript", "Kotlin", "C", "PostgresSQL", "MySQL", "AWS", "Azure", "Kubernetes", "Docker", "Spring", "React", "Grafana", "Kibana"]}/>	
 	</div>
 </section>
@@ -53,7 +29,7 @@ import ToolCarousel from "./ToolCarousel.astro";
 	}
 
     .section-title{
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      
     }
 
 	.skills-grid {
@@ -61,7 +37,6 @@ import ToolCarousel from "./ToolCarousel.astro";
 		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 		gap: 3rem;
 		padding-bottom: 8rem;
-		max-width: 1000px;
 		margin: 0 auto;
 	}
 
@@ -79,8 +54,8 @@ import ToolCarousel from "./ToolCarousel.astro";
 	}
 
 	.skill-tag {
-		background: rgba(255, 255, 255, 0.1);
-		border: 1px solid rgba(255, 255, 255, 0.2);
+		background: rgba(22, 22, 22, 0.562);
+		border: 2px solid rgba(255, 255, 255, 0.401);
 		border-radius: 20px;
 		padding: 0.5rem 1rem;
 		font-size: 0.9rem;

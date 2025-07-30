@@ -1,0 +1,26 @@
+[
+  {
+    "period": "2023 - Present",
+    "title": "Senior Software Engineer",
+    "company": "Volvo Cars",
+    "description": "Leading design initiatives for enterprise software solutions, managing a team of 5 designers, and establishing design systems across multiple products."
+  },
+  {
+    "period": "2021 - 2023",
+    "title": "Software Engineer",
+    "company": "Kry",
+    "description": "Designed user experiences for mobile and web applications, conducted user research, and collaborated with development teams to implement design solutions."
+  },
+  {
+    "period": "2017 - 2021",
+    "title": "Software Engineer",
+    "company": "Ericsson",
+    "description": "Directed creative projects for various clients, managed design workflows, and mentored junior designers in best practices and design methodologies."
+  },
+  {
+    "period": "2010 - 2012",
+    "title": "Test Engineer",
+    "company": "Infosys",
+    "description": "Co-founded a design studio specializing in brand identity and digital experiences. Built the company from ground up and established key client relationships."
+  }
+]

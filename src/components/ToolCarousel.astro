@@ -76,10 +76,10 @@ const validIcons = icons.filter((i): i is { name: string; src: any } => i !== nu
 <div class="carousel-container">
   <div class="carousel-track">
     {validIcons.map(({ name, src }) => (
-      <img src={src.src} alt={name} class="carousel-icon" />
+      <img src={src.src} alt={name} class="carousel-icon"/>
     ))}
     {validIcons.map(({ name, src }) => (
-      <img src={src.src} alt={`${name}-clone`} class="carousel-icon" />
+      <img src={src.src} alt={`${name}-clone`} class="carousel-icon"/>
     ))}
   </div>
 </div>

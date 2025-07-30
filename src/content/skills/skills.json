@@ -1,0 +1,36 @@
+[
+  {
+    "category": "Languages",
+    "skills": [
+      "Java",
+      "Python",
+      "Kotlin",
+      "JavaScript",
+      "C/C++"
+    ]
+  },
+  {
+    "category": "Frameworks",
+    "skills": [
+      "Spring Boot",
+      "React",
+      "Azure",
+      "AWS",
+      "Vert.x",
+      "PostgresSQL",
+      "MySQL"
+    ]
+  },
+  {
+    "category": "Tools",
+    "skills": [
+      "Git",
+      "Kafka",
+      "Kubernetes",
+      "Docker",
+      "Istio",
+      "Grafana",
+      "Kibana"
+    ]
+  }
+]
