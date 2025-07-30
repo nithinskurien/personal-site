@@ -27,7 +27,7 @@ process:
   - title: "Scope the MVP"
     description: "With all the functional and non-functional requirements in place it was time to move on to the scoping the features of the MVP so that the desired deadlines could be met and features could be tied to phased rollouts. This was also a perfect time to go back and validate the protocols and technology selection. An initial draft of the solution with presentations and documentations were done."
   - title: "POC"
-    description: "A quick draft of how the solution would work end to end was made to validate the complete solution to be ready for presenting to tech savvy stakeholders"
+    description: "A quick prototype of how the solution would work end to end was made to validate the complete solution to be ready for presenting to tech savvy stakeholders"
   - title: "Present The Solution"
     description: "The MVP and future plans were presented to key stakeholders and team members to discuss the details and iron out any outstanding requirements and uncertainties. This was done iteratively to make sure every one was on the same page before the execution of the project."
   - title: "Setting Expectations and Timelines"

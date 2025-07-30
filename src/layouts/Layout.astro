@@ -61,7 +61,6 @@ const { title = "NSK" } = Astro.props;
 	}
 
 	body {
-		/*background: #0a0a0a;*/
 		position: relative;
 		line-height: 1.6;
 		overflow-x: hidden;
@@ -78,10 +77,10 @@ const { title = "NSK" } = Astro.props;
 		background-repeat: repeat;
 		background-size: 64px;
 		backdrop-filter: blur(3px); 
-		opacity: 0.1; /* optional, tune to your liking */
+		opacity: 0.1; 
 		pointer-events: none;
 		border-radius: 0;
-		z-index: 0; /* sits above blob (z-index: 0), but below content (z-index: 1) */
+		z-index: 0;
 	}
 
 	.container {
@@ -161,6 +160,8 @@ const { title = "NSK" } = Astro.props;
 		margin-top: 3rem;
 		margin-bottom: 3rem;
 		text-align: left;
+		filter: blur(2px)
+		opacity(0.8)
 	}
 
 	@media (max-width: 768px) {
