@@ -1,7 +1,6 @@
 ---
 const { value, label } = Astro.props;
 const match = value.match(/^([\d,.]+)\s*(\D*)$/);
-console.log(match)
 const targetNumber = match ? parseInt(match[1].replace(/,/g, '')) : 0;
 const unit = match ? match[2] : '';
 ---
@@ -16,14 +15,6 @@ const unit = match ? match[2] : '';
 .stat-badge {
   font-size: 3rem;
   font-weight: bold;
-  opacity: 0;
-  transform: scale(0.95);
-  transition: opacity 1.2s ease-out, transform 1.2s ease-out;
-}
-
-.stat-badge.visible {
-  opacity: 1;
-  transform: scale(1);
 }
 
 .countup {
@@ -50,7 +41,6 @@ const unit = match ? match[2] : '';
         const el = entry.target;
         const target = +el.dataset.target;
         const countEl = el.querySelector('.countup');
-        el.classList.add('visible');
         const duration = 1200;
         const startTime = performance.now();
 

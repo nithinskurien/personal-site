@@ -41,17 +41,11 @@ process:
     description: "Conducted extensive user testing with different employee groups, gathered feedback, and iteratively improved the design. Ensured the final solution met diverse needs across the organization."
 stack:
   - Java
-  - Kafka
   - Spring
+  - istio
   - Postgres
-  - Android
-  - Snowflake
   - Kubernetes
   - Azure
-testimonial:
-  quote: "The new intranet has transformed how we work as a company. Finding information is now effortless, and the improved collaboration tools have brought our teams closer together."
-  author: "Lisa Rodriguez"
-  title: "HR Director | TechCorp"
 conclusion: |
   The corporate intranet optimization project successfully transformed a fragmented, 
   inefficient system into a modern, user-friendly platform that serves as the backbone 
