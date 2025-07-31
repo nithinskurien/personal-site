@@ -1,7 +1,7 @@
 ---
 title: "Relationship Based Authorisation"
 slug: "relationship-based-authorisation"
-priority: 4
+priority: 3
 description: "Improving the reliability, observability and accountability of the existing Relationship based authorisation system"
 image: "/assets/usecase-1.jpg"
 role: "Fullstack Engineer"

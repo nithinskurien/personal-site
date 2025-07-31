@@ -23,6 +23,7 @@
       "Kubernetes",
       "Docker",
       "Istio",
+      "Terraform",
       "Grafana",
       "Kibana"
     ]

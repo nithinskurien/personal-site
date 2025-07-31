@@ -1,7 +1,7 @@
 ---
 title: "API Gateway"
 slug: "mobile-api-gateway"
-priority: 3
+priority: 4
 description: "A cross region gateway for mobile app traffic, with user-market specific routing to meet data compliance"
 image: "/assets/usecase-1.jpg"
 role: "Backend/Infra Engineer"

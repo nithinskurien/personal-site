@@ -11,7 +11,7 @@ employees: "42,000+"
 stats:
   - label: "Avg Daily Volume"
     value: "30M"
-  - label: "Total Users"
+  - label: "Users"
     value: "5M"
 challenge: |
   Volvo had to go through the process of changing the analytics solution provider for the App twice, once for the analytics vendor solution not being GDPR compliant. While the current solution did not allow for any cross platform tracking due to the inability to send any personal data of the user that would allow the aggregation of data. We also did not have the analytics data in any centralised place for any advanced custom analysis, agnostic of the analytics tooling. The over reliance of using the analytics providers tool in the pipeline meant that the cost of switching was too high due to difference in how data was collected and processed by each of the vendors. Also, there was not control of how the data was collected, how much was collected etc. The current analytics solution also did not meet the data requirements we had within the company of having the events of all data products within a data warehouse for later use.
