@@ -1,44 +1,31 @@
 ---
 title: "API Gateway"
 slug: "mobile-api-gateway"
-priority: 1
-description: "A cross region gateway for mobile app traffic"
+priority: 3
+description: "A cross region gateway for mobile app traffic, with user-market specific routing to meet data compliance"
 image: "/assets/usecase-1.jpg"
-role: "Lead Architect & Engineer"
+role: "Backend/Infra Engineer"
 company: "Volvo Cars"
 industry: "Automotive"
-employees: "1000+"
+employees: "42,000+"
 stats:
-  - label: "Productivity increase"
-    value: "20%"
-  - label: "Reduction in search time"
-    value: "60%"
-  - label: "Employee satisfaction"
-    value: "95%"
+  - label: "Saved Time"
+    value: "10X"
+  - label: "Multi Region"
+    value: "4"
+  - label: "User Base"
+    value: "5M"
 challenge: |
-  The existing corporate intranet was outdated, difficult to navigate, and 
-  poorly organized. Employees struggled to find important information, 
-  collaboration tools were scattered across different platforms, and the 
-  overall user experience hindered productivity. The system lacked modern 
-  features like search functionality, mobile responsiveness, and integration 
-  with existing business tools.
+  The mobile clients called the backend services directly, causing issues like delayed updates, lack of security, poor observability, and cross-region routing problems based on user region. This made it hard to manage API changes, enforce data compliance, and monitor usage. I supported the lead engineer in addressing these challenges through improved routing and implementation.
 results: |
-  The optimized intranet delivered significant improvements in employee 
-  productivity and satisfaction. We achieved a 20% increase in overall 
-  productivity metrics, 95% employee satisfaction rating, and reduced 
-  time spent searching for information by 60%. The new system also 
-  improved internal communication efficiency by 45%.
+  We successfully deployed the gateway and the cross-routing functionality. We are currently onboarding teams to the integrate to the gateway
 process:
-  - title: "Employee Research & Analysis"
-    description: "Conducted comprehensive surveys and interviews with employees across different departments to understand their daily workflows, pain points, and information needs within the current intranet system."
-  - title: "Information Architecture"
-    description: "Restructured the entire information hierarchy based on employee mental models and task flows. Created intuitive navigation systems and content organization that aligns with how employees actually work."
-  - title: "Feature Integration"
-    description: "Integrated essential business tools and applications into a unified platform. Designed seamless workflows that connect different systems while maintaining security and compliance requirements."
-  - title: "User Interface Design"
-    description: "Created a modern, clean interface that prioritizes usability and accessibility. Focused on reducing cognitive load while providing quick access to frequently used tools and information."
-  - title: "Testing & Iteration"
-    description: "Conducted extensive user testing with different employee groups, gathered feedback, and iteratively improved the design. Ensured the final solution met diverse needs across the organization."
+  - title: "Design Details & Automation"
+    description: "Supported the lead engineer in the discovery phase of the project. The integration step for teams mainly involved istio based configurations. Teams would have to merge custom edits of the base template to the network configuration. I initiated the automation of the process using Github Actions to simplify and validate the changes the teams were making. Teams wanting to integrate to the gateway could run a workflow which would then add the configurations automatically bringing down the integration time for the teams from an hour to a few minutes for each integration."
+  - title: "User Market Service"
+    description: "The second phase of the gateway implementation was the cross-routing based on user market. This needed a backend service that could give the market of the user based on the id of the user. The design of the service and the databases were done by me. After the design phase the spring boot application to handle the requests were implemented. The service was then tested with the gateway across the multiple regions and then deployed to production."
+  - title: "Onboarding & Monitoring"
+    description: "We are currently onboarding more teams to integrate their services to the gateway. We are also prioritising the teams that have the cross-routing feature of the gateway for compliance. We also have extensive dashboards on Grafana to monitor the system behaviour when the onboarding is ongoing."
 stack:
   - Java
   - Spring
@@ -46,11 +33,8 @@ stack:
   - Postgres
   - Kubernetes
   - Azure
+  - Grafana
+  - Kibana
 conclusion: |
-  The corporate intranet optimization project successfully transformed a fragmented, 
-  inefficient system into a modern, user-friendly platform that serves as the backbone 
-  of company operations. By focusing on employee needs and creating intuitive workflows, 
-  we delivered measurable improvements in productivity and satisfaction. The project 
-  demonstrates how strategic UX design can have a direct impact on organizational 
-  efficiency and employee experience.
+  The API Gateway was successfully integrated to the Volvo ecosystem. The project has achieved what it set out to do. We are currently onboarding more teams to use the gateway. We are gathering feedback and hope to improve on the developer experience.
 ---

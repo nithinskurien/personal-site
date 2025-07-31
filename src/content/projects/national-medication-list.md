@@ -2,61 +2,38 @@
 title: "National Medication List"
 slug: "national-medication-list"
 priority: 2
-description: "Integration towards Swedish national medication registry"
+description: "Integration towards Swedish national medication registry, allowing practitioners to view prescriptions within the core system"
 image: "/assets/usecase-1.jpg"
-role: "Lead Architect & Engineer"
-company: "Volvo Cars"
-industry: "Automotive"
-employees: "1000+"
+role: "Lead Backend Engineer"
+company: "Kry"
+industry: "Healthcare"
+employees: "900+"
 stats:
   - label: "Productivity increase"
-    value: "20%"
-  - label: "Reduction in search time"
-    value: "60%"
-  - label: "Employee satisfaction"
-    value: "95%"
+    value: "10%"
+  - label: "Careprovider"
+    value: "1#"
+  - label: "Practitioners"
+    value: "3,000"
 challenge: |
-  The existing corporate intranet was outdated, difficult to navigate, and 
-  poorly organized. Employees struggled to find important information, 
-  collaboration tools were scattered across different platforms, and the 
-  overall user experience hindered productivity. The system lacked modern 
-  features like search functionality, mobile responsiveness, and integration 
-  with existing business tools.
+  Previously when medical practitioners wanted to see what medications a new patient (not in current Electronic Medical Record) was taking they would have to go to an external service owned by the Swedish health authority.  This often meant that the practitioner would have to go out of the Kry system to get the details before prescribing any medicines to the patients. This meant time was wasted on the consultation switching between applications.
 results: |
-  The optimized intranet delivered significant improvements in employee 
-  productivity and satisfaction. We achieved a 20% increase in overall 
-  productivity metrics, 95% employee satisfaction rating, and reduced 
-  time spent searching for information by 60%. The new system also 
-  improved internal communication efficiency by 45%.
+  With the integration of the national medication list to the Kry product practitioners could see the medications that the patient was taking without ever leaving the Kry system. This meant the practitioners saved multiple minutes every consultation. Leading to estimates of 10% more productivity for the 3000+ practitioners. Kry was the first care-provider to integrate towards the NLL.
 process:
-  - title: "Employee Research & Analysis"
-    description: "Conducted comprehensive surveys and interviews with employees across different departments to understand their daily workflows, pain points, and information needs within the current intranet system."
-  - title: "Information Architecture"
-    description: "Restructured the entire information hierarchy based on employee mental models and task flows. Created intuitive navigation systems and content organization that aligns with how employees actually work."
-  - title: "Feature Integration"
-    description: "Integrated essential business tools and applications into a unified platform. Designed seamless workflows that connect different systems while maintaining security and compliance requirements."
-  - title: "User Interface Design"
-    description: "Created a modern, clean interface that prioritizes usability and accessibility. Focused on reducing cognitive load while providing quick access to frequently used tools and information."
-  - title: "Testing & Iteration"
-    description: "Conducted extensive user testing with different employee groups, gathered feedback, and iteratively improved the design. Ensured the final solution met diverse needs across the organization."
+  - title: "Backend Design"
+    description: "I was heavily involved in the design of the backend service and APIs. The functional and non-functional requirements had to be understood by reading the documentation provided by the eHM. The requirements had to be prioritized to scope the limit of the first MVP."
+  - title: "Implementation"
+    description: "The various features & functionalities needed to complete the integration for the MVP were split into smaller work packages to be finished within a set deadline. The features were implemented one by one and end to end tested with the frontend in stages."
 stack:
   - Java
-  - Kafka
+  - JavaScript
   - Spring
-  - Postgres
-  - Android
-  - Snowflake
-  - Kubernetes
-  - Azure
-testimonial:
-  quote: "The new intranet has transformed how we work as a company. Finding information is now effortless, and the improved collaboration tools have brought our teams closer together."
-  author: "Lisa Rodriguez"
-  title: "HR Director | TechCorp"
+  - React
+  - MySQL
+  - DataDog
+  - Kibana
+  - Docker
+  - AWS
 conclusion: |
-  The corporate intranet optimization project successfully transformed a fragmented, 
-  inefficient system into a modern, user-friendly platform that serves as the backbone 
-  of company operations. By focusing on employee needs and creating intuitive workflows, 
-  we delivered measurable improvements in productivity and satisfaction. The project 
-  demonstrates how strategic UX design can have a direct impact on organizational 
-  efficiency and employee experience.
+  I had to leave the project before the collaborative integration testing phase with eHM for the approval. My contributions to the project in planning, execution and implementation helped the project to stay on track and helped Kry to be the first care-provider to integrate towards NLL
 ---

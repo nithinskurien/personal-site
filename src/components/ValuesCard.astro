@@ -59,8 +59,8 @@ modules.forEach((mod, i) => {
             <img
               class="quote-origin"
               id="quoteIcon"
-              src={flag.src}
-              alt={flag.src}
+              src={iconMap[quotes[0].icon]}
+              alt={quotes[0].icon}
               loading="lazy"
             />
           </div>
@@ -135,7 +135,7 @@ modules.forEach((mod, i) => {
   }
 
   .quote-content {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     min-height: 100px;
     display: flex;
     flex-direction: column;
@@ -379,11 +379,11 @@ modules.forEach((mod, i) => {
       this.isTransitioning = true;
 
       // Blur out current content
-      this.elements.content.style.filter = "blur(8px)";
+      this.elements.content.style.filter = "blur(6px)";
       this.elements.content.style.opacity = "0.3";
 
       // Wait for blur transition
-      await new Promise((resolve) => setTimeout(resolve, 200));
+      await new Promise((resolve) => setTimeout(resolve, 250));
 
       // Update content
       const quote = this.quotes[newIndex];

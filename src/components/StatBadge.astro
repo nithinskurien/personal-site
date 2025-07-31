@@ -6,15 +6,20 @@ const unit = match ? match[2] : "";
 ---
 
 <div class="stat-badge" data-target={targetNumber}>
-  <span class="countup">0</span>
-  <span class="unit">{unit}</span>
+  <div>
+    <span class="countup">0</span>
+    <span class="unit">{unit}</span>
+  </div>
   <div class="label">{label}</div>
 </div>
 
 <style>
   .stat-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     font-size: 3rem;
-    font-weight: bold;
+    font-weight: normal;
   }
 
   .countup {
@@ -28,8 +33,7 @@ const unit = match ? match[2] : "";
 
   .label {
     font-size: 1rem;
-    color: #666;
-    font-style: italic;
+    color: rgba(255, 255, 255, 0.6);
   }
 </style>
 

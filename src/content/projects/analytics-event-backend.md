@@ -38,6 +38,7 @@ process:
     description: "With all the parts in place it was time to do integration tests and end to end tests to test the pipeline.Once the features were validated the feature was enabled and the analytics events were rolled out incrementally"
 stack:
   - Java
+  - Python
   - Kafka
   - Spring
   - PostgresSQL
@@ -45,6 +46,8 @@ stack:
   - Snowflake
   - Kubernetes
   - Azure
+  - Grafana
+  - Kibana
 conclusion: |
   The analytics event backend solution was delivered on time and worked without any hiccups, all involved stakeholders were content with the outcome. The solution now makes the app analytics very robust and compliant. We have full control of the analytics data and can decide what we want to do with it. The option of having the analytics events in the Datawarehouse and Snowflake opens up endless possibility when it comes to user analytics and cross-platform tracking.
 ---
