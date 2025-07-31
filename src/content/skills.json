@@ -1,13 +1,7 @@
 [
   {
     "category": "Languages",
-    "skills": [
-      "Java",
-      "Python",
-      "Kotlin",
-      "JavaScript",
-      "C/C++"
-    ]
+    "skills": ["Java", "Python", "Kotlin", "JavaScript", "C/C++"]
   },
   {
     "category": "Frameworks",

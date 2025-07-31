@@ -2,7 +2,7 @@
 title: "Analytics Event Backend"
 slug: "analytics-event-backend"
 priority: 0
-description: "An end to end data, analytics vendor agnostic product to Ingest analytics events from the client to Snowflake. Enable the possiblity for cross-platform tracking"
+description: "An end to end, analytics vendor agnostic data product to ingest analytics events from the clients to Snowflake. Enabling the possiblity for cross-platform tracking"
 image: "/assets/usecase-1.jpg"
 role: "Architect & Lead Engineer"
 company: "Volvo Cars"

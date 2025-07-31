@@ -1,58 +1,117 @@
 ---
-import quotes from "../content/values.json"
+import quotes from "../content/values.json";
+import flag from "../assets/icons/JP.svg";
+import type { ImageMetadata } from "astro";
+
+const iconMap: Record<string, string> = {};
+
+// Load all icons (lazy importers)
+const importers = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/icons/*.{png,svg}",
+  { eager: false },
+);
+// Preload all modules upfront using Promise.all with top-level await
+const modules = await Promise.all(
+  quotes.map((quote) => {
+    const key = `/src/assets/icons/${quote.icon}.svg`;
+    const importer = importers[key];
+    if (!importer) {
+      console.warn(`Icon not found for ${quote.icon}, using fallback.`);
+      return null;
+    }
+    return importer();
+  }),
+);
+// Map company icons to default image metadata
+modules.forEach((mod, i) => {
+  if (mod) {
+    iconMap[quotes[i].icon] = mod.default.src;
+  }
+});
 ---
 
-<section class="section values">
-	<div class="container container-border">
-        <h2 class="section-title gradient-text">Values</h2>
-        <div class="quote-card-container">
-        <div class="quote-card" id="quoteCard">
-            <div class="quote-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z" fill="currentColor"/>
-            </svg>
-            </div>
-            <div class="quote-content" id="quoteContent">
-            <blockquote class="quote-text" id="quoteText">
-                {quotes[0].quote}
-            </blockquote>
-            <div class="quote-attribution">
-                <cite class="quote-author" id="quoteAuthor">{quotes[0].philosophy}</cite>
-            </div>
-            </div>
+<section id="values" class="section values">
+  <div class="container container-border">
+    <h2 class="section-title gradient-text">Values</h2>
+    <div class="quote-card-container">
+      <div class="quote-card" id="quoteCard">
+        <div class="quote-icon">
+          <svg
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"
+              fill="currentColor"></path>
+          </svg>
+        </div>
+        <div class="quote-content" id="quoteContent">
+          <blockquote class="quote-text" id="quoteText">
+            {quotes[0].quote}
+          </blockquote>
+          <div class="quote-attribution">
+            <cite class="quote-author" id="quoteAuthor">
+              {quotes[0].philosophy}
+            </cite>
+            <img
+              class="quote-origin"
+              id="quoteIcon"
+              src={flag.src}
+              alt={flag.src}
+              loading="lazy"
+            />
+          </div>
+        </div>
 
-            <div class="quote-controls">
-            <div class="quote-indicators" id="quoteIndicators">
-                {quotes.map((_, index) => (
-                <button 
-                    class={`indicator ${index === 0 ? 'active' : ''}`}
-                    data-index={index}
-                    aria-label={`Go to quote ${index + 1}`}
-                ></button>
-                ))}
-            </div>
-            <button class="next-button" id="nextButton" aria-label="Next quote">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </button>
-            </div>
+        <div class="quote-controls">
+          <div class="quote-indicators" id="quoteIndicators">
+            {
+              quotes.map((_, index) => (
+                <button
+                  class={`indicator ${index === 0 ? "active" : ""}`}
+                  data-index={index}
+                  aria-label={`Go to quote ${index + 1}`}
+                />
+              ))
+            }
+          </div>
+          <button class="next-button" id="nextButton" aria-label="Next quote">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9 18l6-6-6-6"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
+          </button>
         </div>
-        </div>
+      </div>
     </div>
+  </div>
 </section>
 
 <style>
-
   .values {
-    background: rgba(0, 0, 0, 0.3);  
+    background: rgba(0, 0, 0, 0.3);
   }
 
   .quote-card-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    max-width: 1000px;
     padding: 2rem;
+    margin: 0 auto;
   }
 
   .quote-card {
@@ -60,11 +119,10 @@ import quotes from "../content/values.json"
     backdrop-filter: blur(20px);
     border-radius: 24px;
     padding: 3rem;
-    max-width: 800px;
     width: 100%;
     border: 1px solid rgba(255, 255, 255, 0.1);
-	border-radius: 20px;
-	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     position: relative;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
@@ -78,15 +136,15 @@ import quotes from "../content/values.json"
 
   .quote-content {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    min-height: 200px;
+    min-height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
 
   .quote-text {
-    font-size: 1.5rem;
-    line-height: 1.6;
+    font-size: 1.25rem;
+    line-height: 1.2;
     color: #dfdfdf;
     margin: 0 0 2rem 0;
     font-weight: 500;
@@ -96,8 +154,10 @@ import quotes from "../content/values.json"
 
   .quote-attribution {
     display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    gap: 0.5rem;
   }
 
   .quote-author {
@@ -105,6 +165,12 @@ import quotes from "../content/values.json"
     font-weight: 600;
     color: #b0b0b0;
     font-style: normal;
+  }
+
+  .quote-origin {
+    height: 20px;
+    align-self: center;
+    opacity: 0.7;
   }
 
   .quote-role {
@@ -117,6 +183,7 @@ import quotes from "../content/values.json"
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
     margin-top: 2rem;
     padding-top: 2rem;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
@@ -125,6 +192,7 @@ import quotes from "../content/values.json"
   .quote-indicators {
     display: flex;
     gap: 0.75rem;
+    padding: 4px;
   }
 
   .indicator {
@@ -149,7 +217,7 @@ import quotes from "../content/values.json"
   }
 
   .indicator.active::after {
-    content: '';
+    content: "";
     position: absolute;
     top: -4px;
     left: -4px;
@@ -185,7 +253,8 @@ import quotes from "../content/values.json"
   }
 
   @keyframes pulse {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 1;
       transform: scale(1);
     }
@@ -241,139 +310,142 @@ import quotes from "../content/values.json"
   }
 </style>
 
-<script define:vars={{ quotes }}>
+<script define:vars={{ quotes, iconMap }}>
   class QuoteCard {
     constructor() {
       this.quotes = quotes;
+      this.icons = iconMap;
       this.currentIndex = 0;
       this.isTransitioning = false;
       this.autoPlayInterval = null;
       this.autoPlayDelay = 4000; // 4 seconds
-      
+
       this.elements = {
-        card: document.getElementById('quoteCard'),
-        content: document.getElementById('quoteContent'),
-        text: document.getElementById('quoteText'),
-        author: document.getElementById('quoteAuthor'),
-        role: document.getElementById('quoteRole'),
-        indicators: document.getElementById('quoteIndicators'),
-        nextButton: document.getElementById('nextButton')
+        card: document.getElementById("quoteCard"),
+        content: document.getElementById("quoteContent"),
+        icon: document.getElementById("quoteIcon"),
+        text: document.getElementById("quoteText"),
+        author: document.getElementById("quoteAuthor"),
+        role: document.getElementById("quoteRole"),
+        indicators: document.getElementById("quoteIndicators"),
+        nextButton: document.getElementById("nextButton"),
       };
-      
+
       this.init();
     }
-    
+
     init() {
       this.setupEventListeners();
       this.startAutoPlay();
     }
-    
+
     setupEventListeners() {
       // Next button click
-      this.elements.nextButton.addEventListener('click', () => {
+      this.elements.nextButton.addEventListener("click", () => {
         this.nextQuote();
       });
-      
+
       // Indicator clicks
-      this.elements.indicators.addEventListener('click', (e) => {
-        if (e.target.classList.contains('indicator')) {
+      this.elements.indicators.addEventListener("click", (e) => {
+        if (e.target.classList.contains("indicator")) {
           const index = parseInt(e.target.dataset.index);
           this.goToQuote(index);
         }
       });
-      
+
       // Pause auto-play on hover
-      this.elements.card.addEventListener('mouseenter', () => {
+      this.elements.card.addEventListener("mouseenter", () => {
         this.pauseAutoPlay();
       });
-      
+
       // Resume auto-play when not hovering
-      this.elements.card.addEventListener('mouseleave', () => {
+      this.elements.card.addEventListener("mouseleave", () => {
         this.startAutoPlay();
       });
-      
+
       // Pause auto-play on focus (accessibility)
-      this.elements.card.addEventListener('focusin', () => {
+      this.elements.card.addEventListener("focusin", () => {
         this.pauseAutoPlay();
       });
-      
-      this.elements.card.addEventListener('focusout', () => {
+
+      this.elements.card.addEventListener("focusout", () => {
         this.startAutoPlay();
       });
     }
-    
+
     async transitionQuote(newIndex) {
       if (this.isTransitioning || newIndex === this.currentIndex) return;
-      
+
       this.isTransitioning = true;
-      
+
       // Blur out current content
-      this.elements.content.style.filter = 'blur(8px)';
-      this.elements.content.style.opacity = '0.3';
-      
+      this.elements.content.style.filter = "blur(8px)";
+      this.elements.content.style.opacity = "0.3";
+
       // Wait for blur transition
-      await new Promise(resolve => setTimeout(resolve, 200));
-      
+      await new Promise((resolve) => setTimeout(resolve, 200));
+
       // Update content
       const quote = this.quotes[newIndex];
       this.elements.text.textContent = quote.quote;
       this.elements.author.textContent = quote.philosophy;
+      this.elements.icon.src = iconMap[quote.icon];
 
-      
       // Update indicators
       this.updateIndicators(newIndex);
-      
+
       // Blur in new content
-      this.elements.content.style.filter = 'blur(0px)';
-      this.elements.content.style.opacity = '1';
-      
+      this.elements.content.style.filter = "blur(0px)";
+      this.elements.content.style.opacity = "1";
+
       this.currentIndex = newIndex;
-      
+
       // Wait for blur-in transition to complete
-      await new Promise(resolve => setTimeout(resolve, 200));
-      
+      await new Promise((resolve) => setTimeout(resolve, 200));
+
       this.isTransitioning = false;
     }
-    
+
     updateIndicators(activeIndex) {
-      const indicators = this.elements.indicators.querySelectorAll('.indicator');
+      const indicators =
+        this.elements.indicators.querySelectorAll(".indicator");
       indicators.forEach((indicator, index) => {
-        indicator.classList.toggle('active', index === activeIndex);
+        indicator.classList.toggle("active", index === activeIndex);
       });
     }
-    
+
     nextQuote() {
       const nextIndex = (this.currentIndex + 1) % this.quotes.length;
       this.goToQuote(nextIndex);
     }
-    
+
     goToQuote(index) {
       this.transitionQuote(index);
       this.resetAutoPlay();
     }
-    
+
     startAutoPlay() {
       this.pauseAutoPlay();
       this.autoPlayInterval = setInterval(() => {
         this.nextQuote();
       }, this.autoPlayDelay);
     }
-    
+
     pauseAutoPlay() {
       if (this.autoPlayInterval) {
         clearInterval(this.autoPlayInterval);
         this.autoPlayInterval = null;
       }
     }
-    
+
     resetAutoPlay() {
       this.startAutoPlay();
     }
   }
-  
+
   // Initialize when DOM is loaded
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
       new QuoteCard();
     });
   } else {

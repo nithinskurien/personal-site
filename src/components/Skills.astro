@@ -1,79 +1,97 @@
 ---
 import ToolCarousel from "./ToolCarousel.astro";
-import skills from "../content/skills.json"
-
+import skills from "../content/skills.json";
 ---
 
-<section class="section skills">
-	<div class="container container-border">
-		<h2 class="section-title gradient-text">Skills</h2>
-		<div class="skills-grid">
-	{skills.map((group) => (
-		<div class="skill-category">
-			<h3>{group.category}</h3>
-			<div class="skill-tags">
-				{group.skills.map((skill) => (
-					<span class="skill-tag">{skill}</span>
-				))}
-			</div>
-		</div>
-	))}
-</div>
-	<ToolCarousel tools={["Java", "Python", "JavaScript", "Kotlin", "C", "PostgresSQL", "MySQL", "AWS", "Azure", "Kubernetes", "Docker", "Spring", "React", "Grafana", "Kibana"]}/>	
-	</div>
+<section id="skills" class="section skills">
+  <div class="container container-border">
+    <h2 class="section-title gradient-text">Skills</h2>
+    <div class="skills-grid">
+      {
+        skills.map((group) => (
+          <div class="skill-category">
+            <h3>{group.category}</h3>
+            <div class="skill-tags">
+              {group.skills.map((skill) => (
+                <span class="skill-tag">{skill}</span>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+    <ToolCarousel
+      tools={[
+        "Java",
+        "Python",
+        "JavaScript",
+        "Kotlin",
+        "C",
+        "PostgresSQL",
+        "MySQL",
+        "AWS",
+        "Azure",
+        "Kubernetes",
+        "Docker",
+        "Spring",
+        "React",
+        "Grafana",
+        "Kibana",
+      ]}
+    />
+  </div>
 </section>
 
 <style>
-	.skills {
-		background: rgba(0, 0, 0, 0.3);  
-	}
+  .skills {
+    background: rgba(0, 0, 0, 0.3);
+  }
 
-    .section-title{
-      
+  .section-title {
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    padding-bottom: 8rem;
+    margin: 0 auto;
+  }
+
+  .skill-category h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: white;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .skill-tag {
+    background: rgba(22, 22, 22, 0.562);
+    border: 2px solid rgba(255, 255, 255, 0.401);
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+  }
+
+  .skill-tag:hover {
+    background: rgba(102, 126, 234, 0.2);
+    border-color: #667eea;
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .skills-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
     }
-
-	.skills-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: 3rem;
-		padding-bottom: 8rem;
-		margin: 0 auto;
-	}
-
-	.skill-category h3 {
-		font-size: 1.5rem;
-		font-weight: 600;
-		margin-bottom: 1.5rem;
-		color: white;
-	}
-
-	.skill-tags {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.75rem;
-	}
-
-	.skill-tag {
-		background: rgba(22, 22, 22, 0.562);
-		border: 2px solid rgba(255, 255, 255, 0.401);
-		border-radius: 20px;
-		padding: 0.5rem 1rem;
-		font-size: 0.9rem;
-		color: rgba(255, 255, 255, 0.8);
-		transition: all 0.3s ease;
-	}
-
-	.skill-tag:hover {
-		background: rgba(102, 126, 234, 0.2);
-		border-color: #667eea;
-		color: white;
-		transform: translateY(-2px);
-	}
-
-	@media (max-width: 768px) {
-		.skills-grid {
-			grid-template-columns: 1fr;
-			gap: 2rem;
-		}
-	}
+  }
 </style>

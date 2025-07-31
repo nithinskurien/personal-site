@@ -1,6 +1,6 @@
 ---
-import StatBadge from '../components/StatBadge.astro';
-import ToolCarousel from '../components/ToolCarousel.astro';
+import StatBadge from "../components/StatBadge.astro";
+import ToolCarousel from "../components/ToolCarousel.astro";
 
 interface Stat {
   label: string;
@@ -13,410 +13,421 @@ interface Process {
 }
 
 interface Project {
-    title: string;
-    subtitle: string;
-    role: string[];
-    company: string;
-    industry: string;
-    employees: string;
-    stats: Stat[];
-    challenge: string;
-    results: string;
-    process: Process[];
-    stack: string[];
-    conclusion: string;
+  title: string;
+  subtitle: string;
+  role: string[];
+  company: string;
+  industry: string;
+  employees: string;
+  stats: Stat[];
+  challenge: string;
+  results: string;
+  process: Process[];
+  stack: string[];
+  conclusion: string;
 }
 const {
-	title,
-	subtitle,
-    role,
-    company,
-	industry,
-	employees,
-	stats,
-	challenge,
-	results,
-	process,
-	stack,
-	conclusion
+  title,
+  subtitle,
+  role,
+  company,
+  industry,
+  employees,
+  stats,
+  challenge,
+  results,
+  process,
+  stack,
+  conclusion,
 } = Astro.props as Project;
 ---
 
 <section class="section projects">
-    <div class="container">
-	<main class="project-page">
-		<!-- Hero -->
-		<section class="project-hero">
-			<div class="container">
-				<div class="project-header">
-					<h1>{title}</h1>
-					<p class="project-subtitle">{subtitle}</p>
-				</div>
-				<div class="hero-image">
-					<div class="gradient-bg" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);"></div>
-				</div>
-			</div>
-		</section>
-
-		<!-- Challenge -->
-		<section class="project-section">
-			<div class="container project-metadata">
-                <div class="project-meta">
-					<div class="meta-item"><h3>Role</h3><p>{role}</p></div>
-					<div class="meta-item"><h3>Company</h3><p>{company}</p></div>
-					<div class="meta-item"><h3>Industry</h3><p>{industry}</p></div>
-					<div class="meta-item"><h3>Employees</h3><p>{employees}</p></div>
-				</div>
-                <div class="project-meta-text">
-                    <div class="section-content">
-                        <h2>Challenge</h2>
-                        <p>{challenge}</p>
-                    </div>
-                    <div class="section-content">
-                        <h2>Results</h2>
-                        <p>{results}</p>
-                    </div>
-                </div>
-			</div>
-		</section>
-
-		<!-- Results -->
-		<section class="project-section">
-			<div class="container">
-				<div class="stats-grid">
-					{stats.map(stat => (
-						<StatBadge label={stat.label} value={stat.value}/>
-					))}
-				</div>
-			</div>
-		</section>
-
-		<!-- Process -->
-		<section class="project-section conclusion">
-			<div class="container">
-				<h2 class="section-title ">Process</h2>
-				<div class="process-steps">
-					{process.map(step => (
-						<div class="process-step">
-							<h3>{step.title}</h3>
-							<p>{step.description}</p>
-						</div>
-					))}
-				</div>
-			</div>
-		</section>
-
-		<!-- Stack -->
-        <ToolCarousel tools={stack}/>
-
-		<!-- Conclusion -->
-		<section class="project-section conclusion">
-            <div class="container">
-				<h2 class="section-title">Conclusion</h2>
-				<p>{conclusion}</p>
+  <div class="container">
+    <main class="project-page">
+      <!-- Hero -->
+      <section class="project-hero">
+        <div class="container">
+          <div class="project-header">
+            <h1>{title}</h1>
+            <p class="project-subtitle">{subtitle}</p>
+          </div>
+          <div class="hero-image">
+            <div
+              class="gradient-bg"
+              style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);"
+            >
             </div>
-		</section>
-	</main>
-    </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Challenge -->
+      <section class="project-section">
+        <div class="container project-metadata">
+          <div class="project-meta">
+            <div class="meta-item"><h3>Role</h3><p>{role}</p></div>
+            <div class="meta-item"><h3>Company</h3><p>{company}</p></div>
+            <div class="meta-item"><h3>Industry</h3><p>{industry}</p></div>
+            <div class="meta-item"><h3>Employees</h3><p>{employees}</p></div>
+          </div>
+          <div class="project-meta-text">
+            <div class="section-content">
+              <h2>Challenge</h2>
+              <p>{challenge}</p>
+            </div>
+            <div class="section-content">
+              <h2>Results</h2>
+              <p>{results}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Results -->
+      <section class="project-section">
+        <div class="container">
+          <div class="stats-grid">
+            {
+              stats.map((stat) => (
+                <StatBadge label={stat.label} value={stat.value} />
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- Process -->
+      <section class="project-section conclusion">
+        <div class="container">
+          <h2 class="section-title">Process</h2>
+          <div class="process-steps">
+            {
+              process.map((step) => (
+                <div class="process-step">
+                  <h3>{step.title}</h3>
+                  <p>{step.description}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- Stack -->
+      <ToolCarousel tools={stack} />
+
+      <!-- Conclusion -->
+      <section class="project-section conclusion">
+        <div class="container">
+          <h2 class="section-title">Conclusion</h2>
+          <p>{conclusion}</p>
+        </div>
+      </section>
+    </main>
+  </div>
 </section>
 
 <style>
+  .projects {
+    background: rgba(0, 0, 0, 0.3);
+  }
 
-    .projects {
-        background: rgba(0, 0, 0, 0.3);
+  .project-page {
+    padding-top: 80px;
+    max-width: 800px;
+    margin-inline: auto;
+  }
+
+  .project-metadata {
+    align-items: flex-start;
+    display: flex;
+    flex: 0 0 auto;
+    flex-flow: row;
+    gap: 50px;
+    position: relative;
+    overflow: visible;
+  }
+
+  .project-meta-text {
+    display: flex;
+    flex-flow: column;
+    gap: 50px;
+  }
+
+  .project-hero {
+    padding-top: 4rem;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(168, 237, 234, 0.1) 0%,
+      transparent 70%
+    );
+  }
+
+  .project-header {
+    text-align: center;
+    margin: 0 auto 3rem;
+  }
+
+  .project-header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: white;
+    line-height: 1.2;
+  }
+
+  .project-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+  }
+
+  .hero-image {
+    height: 400px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 3rem 0;
+    position: relative;
+  }
+
+  .gradient-bg {
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+  }
+
+  .project-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+  }
+
+  .meta-item h3 {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .meta-item p {
+    font-size: 1.1rem;
+    color: white;
+    font-weight: 600;
+  }
+
+  .project-section {
+    padding: 2rem 0;
+  }
+
+  .section-content {
+    margin: 0 auto;
+  }
+
+  .section-content p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.7;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+    margin-inline: auto;
+    align-items: center;
+    justify-items: center;
+  }
+
+  .stat-card {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+  }
+
+  .stat-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #a8edea;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+  }
+
+  .process-images {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+    margin: 3rem 0;
+  }
+
+  .process-image {
+    height: 300px;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .process-image.large {
+    height: 300px;
+  }
+
+  .process-steps {
+    margin: 0 auto;
+  }
+
+  .process-step {
+    margin-bottom: 3rem;
+  }
+
+  .process-step h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 1rem;
+  }
+
+  .process-step p {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+  }
+
+  .tech-stack {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .tech-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin: 2rem 0;
+  }
+
+  .tech-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+
+  .stack-image {
+    height: 400px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 3rem 0;
+  }
+
+  .testimonial {
+    max-width: 600px;
+    margin: 3rem auto;
+    text-align: center;
+  }
+
+  .testimonial blockquote {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-style: italic;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .author-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  }
+
+  .author-info {
+    text-align: left;
+  }
+
+  .author-name {
+    color: white;
+    font-weight: 600;
+  }
+
+  .author-title {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+  }
+
+  .conclusion-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 3rem 0;
+  }
+
+  .conclusion-image {
+    height: 250px;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .conclusion {
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  .conclusion p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 768px) {
+    .project-header h1 {
+      font-size: 2rem;
     }
 
-	.project-page {
-		padding-top: 80px;
-        max-width: 800px;
-        margin-inline: auto;
-	}
+    .hero-image {
+      height: 250px;
+    }
+
+    .process-images {
+      grid-template-columns: 1fr;
+    }
+
+    .conclusion-images {
+      grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
 
     .project-metadata {
-        align-items: flex-start;
-        display: flex;
-        flex: 0 0 auto;
-        flex-flow: row;
-        gap: 50px;
-        position: relative;
-        overflow: visible;
+      flex-direction: column;
+    }
+
+    .project-meta,
+    .project-meta-text {
+      width: 100%;
     }
 
     .project-meta-text {
-        display: flex;
-        flex-flow: column;
-        gap: 50px
+      grid-template-columns: 1fr;
     }
-
-	.project-hero {
-		padding-top: 4rem;
-		background: radial-gradient(ellipse at center, rgba(168, 237, 234, 0.1) 0%, transparent 70%);
-	}
-
-	.project-header {
-		text-align: center;
-		margin: 0 auto 3rem;
-	}
-
-	.project-header h1 {
-		font-size: 3rem;
-		font-weight: 700;
-		margin-bottom: 1.5rem;
-		color: white;
-		line-height: 1.2;
-	}
-
-	.project-subtitle {
-		font-size: 1.1rem;
-		color: rgba(255, 255, 255, 0.7);
-		line-height: 1.6;
-	}
-
-	.hero-image {
-		height: 400px;
-		border-radius: 20px;
-		overflow: hidden;
-		margin: 3rem 0;
-		position: relative;
-	}
-
-	.gradient-bg {
-		width: 100%;
-		height: 100%;
-		opacity: 0.8;
-	}
-
-	.project-meta {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-		gap: 2rem;
-	}
-
-	.meta-item h3 {
-		font-size: 0.9rem;
-		color: rgba(255, 255, 255, 0.6);
-		margin-bottom: 0.5rem;
-		font-weight: 500;
-	}
-
-	.meta-item p {
-		font-size: 1.1rem;
-		color: white;
-		font-weight: 600;
-	}
-
-	.project-section {
-		padding: 2rem 0;
-	}
-
-	.section-content {
-		margin: 0 auto;
-	}
-
-	.section-content p {
-		font-size: 1.1rem;
-		color: rgba(255, 255, 255, 0.7);
-		line-height: 1.7;
-	}
-
-	.stats-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-		gap: 2rem;
-		margin-top: 3rem;
-        margin-inline: auto ;
-		align-items: center;
-		justify-items: center;
-	}
-
-	.stat-card {
-		text-align: center;
-		padding: 2rem;
-		background: rgba(255, 255, 255, 0.05);
-		border: 1px solid rgba(255, 255, 255, 0.1);
-		border-radius: 16px;
-		backdrop-filter: blur(10px);
-	}
-
-	.stat-number {
-		font-size: 3rem;
-		font-weight: 700;
-		color: #a8edea;
-		margin-bottom: 0.5rem;
-	}
-
-	.stat-label {
-		color: rgba(255, 255, 255, 0.7);
-		font-size: 0.9rem;
-	}
-
-	.process-images {
-		display: grid;
-		grid-template-columns: 2fr 1fr;
-		gap: 1rem;
-		margin: 3rem 0;
-	}
-
-	.process-image {
-		height: 300px;
-		border-radius: 16px;
-		overflow: hidden;
-	}
-
-	.process-image.large {
-		height: 300px;
-	}
-
-	.process-steps {
-		margin: 0 auto;
-	}
-
-	.process-step {
-		margin-bottom: 3rem;
-	}
-
-	.process-step h3 {
-		font-size: 1.3rem;
-		font-weight: 600;
-		color: white;
-		margin-bottom: 1rem;
-	}
-
-	.process-step p {
-		color: rgba(255, 255, 255, 0.7);
-		line-height: 1.6;
-	}
-
-	.tech-stack {
-		background: rgba(255, 255, 255, 0.02);
-	}
-
-	.tech-icons {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 1rem;
-		justify-content: center;
-		margin: 2rem 0;
-	}
-
-	.tech-icon {
-		width: 60px;
-		height: 60px;
-		border-radius: 12px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		color: white;
-		font-weight: 600;
-		font-size: 0.8rem;
-		text-align: center;
-	}
-
-	.stack-image {
-		height: 400px;
-		border-radius: 20px;
-		overflow: hidden;
-		margin: 3rem 0;
-	}
-
-	.testimonial {
-		max-width: 600px;
-		margin: 3rem auto;
-		text-align: center;
-	}
-
-	.testimonial blockquote {
-		font-size: 1.2rem;
-		color: rgba(255, 255, 255, 0.8);
-		line-height: 1.6;
-		margin-bottom: 2rem;
-		font-style: italic;
-	}
-
-	.testimonial-author {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 1rem;
-	}
-
-	.author-avatar {
-		width: 50px;
-		height: 50px;
-		border-radius: 50%;
-		background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-	}
-
-	.author-info {
-		text-align: left;
-	}
-
-	.author-name {
-		color: white;
-		font-weight: 600;
-	}
-
-	.author-title {
-		color: rgba(255, 255, 255, 0.6);
-		font-size: 0.9rem;
-	}
-
-	.conclusion-images {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 1rem;
-		margin: 3rem 0;
-	}
-
-	.conclusion-image {
-		height: 250px;
-		border-radius: 16px;
-		overflow: hidden;
-	}
-
-	.conclusion {
-		margin: 0 auto;
-		text-align: left;
-	}
-
-	.conclusion p {
-		font-size: 1.1rem;
-		color: rgba(255, 255, 255, 0.7);
-		line-height: 1.7;
-	}
-
-	@media (max-width: 768px) {
-		.project-header h1 {
-			font-size: 2rem;
-		}
-		
-		.hero-image {
-			height: 250px;
-		}
-		
-		.process-images {
-			grid-template-columns: 1fr;
-		}
-		
-		.conclusion-images {
-			grid-template-columns: 1fr;
-		}
-		
-		.stats-grid {
-			grid-template-columns: 1fr;
-		}
-
-		.project-metadata {
-        	flex-direction: column;
-    	}
-
-		.project-meta,
-    	.project-meta-text {
-        width: 100%;
-    	}
-
-		.project-meta-text {
-			grid-template-columns: 1fr;
-		}
-	}
+  }
 </style>

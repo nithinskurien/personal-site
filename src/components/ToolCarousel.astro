@@ -1,5 +1,4 @@
 ---
-
 interface Props {
   tools: Array<string>;
 }
@@ -15,17 +14,18 @@ const icons = await Promise.all(
       console.warn(`Icon for ${tool} not found`);
       return null;
     }
-  })
-  );
-const validIcons = icons.filter((i): i is { name: string; src: any } => i !== null);
+  }),
+);
+const validIcons = icons.filter(
+  (i): i is { name: string; src: any } => i !== null,
+);
 ---
-<style>
 
+<style>
   .container-section {
     padding-left: 8rem;
     padding-right: 8rem;
     width: 100%;
-
   }
 
   .carousel-container {
@@ -35,7 +35,13 @@ const validIcons = icons.filter((i): i is { name: string; src: any } => i !== nu
     margin-bottom: 2rem;
     display: flex;
     place-items: center;
-    mask-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 12.5%, rgb(0, 0, 0) 87.5%, rgba(0, 0, 0, 0) 100%);
+    mask-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0) 0%,
+      rgb(0, 0, 0) 12.5%,
+      rgb(0, 0, 0) 87.5%,
+      rgba(0, 0, 0, 0) 100%
+    );
   }
 
   .carousel-track {
@@ -43,7 +49,6 @@ const validIcons = icons.filter((i): i is { name: string; src: any } => i !== nu
     margin-top: 2rem;
     margin-bottom: 2rem;
     animation: scroll 60s linear infinite;
-   
   }
 
   .carousel-track:hover {
@@ -73,14 +78,18 @@ const validIcons = icons.filter((i): i is { name: string; src: any } => i !== nu
 </style>
 
 <div class="container-section">
-<div class="carousel-container">
-  <div class="carousel-track">
-    {validIcons.map(({ name, src }) => (
-      <img src={src.src} alt={name} class="carousel-icon"/>
-    ))}
-    {validIcons.map(({ name, src }) => (
-      <img src={src.src} alt={`${name}-clone`} class="carousel-icon"/>
-    ))}
+  <div class="carousel-container">
+    <div class="carousel-track">
+      {
+        validIcons.map(({ name, src }) => (
+          <img src={src.src} alt={name} class="carousel-icon" />
+        ))
+      }
+      {
+        validIcons.map(({ name, src }) => (
+          <img src={src.src} alt={`${name}-clone`} class="carousel-icon" />
+        ))
+      }
+    </div>
   </div>
-</div>
 </div>

@@ -1,17 +1,17 @@
 ---
-import experiences from '../content/experiences.json';
-import type { ImageMetadata } from 'astro';
+import experiences from "../content/experiences.json";
+import type { ImageMetadata } from "astro";
 
 const iconMap: Record<string, ImageMetadata> = {};
 
 // Load all icons (lazy importers)
 const importers = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/assets/icons/*.{png,svg}', 
-  { eager: false }
-)
+  "/src/assets/icons/*.{png,svg}",
+  { eager: false },
+);
 // Preload all modules upfront using Promise.all with top-level await
 const modules = await Promise.all(
-  experiences.map(item => {
+  experiences.map((item) => {
     const key = `/src/assets/icons/${item.company}.svg`;
     const importer = importers[key];
     if (!importer) {
@@ -19,7 +19,7 @@ const modules = await Promise.all(
       return null;
     }
     return importer();
-  })
+  }),
 );
 // Map company icons to default image metadata
 modules.forEach((mod, i) => {
@@ -30,101 +30,105 @@ modules.forEach((mod, i) => {
 ---
 
 <section id="experience" class="section experience">
-	<div class="container container-border">
-		<h2 class="section-title gradient-text">Experience</h2>
-		<div class="experience-list">
-			{experiences.map((item) => (
-				<div class="experience-item">
-					<div class="experience-period">
-						<img src= {iconMap[item.company].src} alt={item.company} class="experience-icon"/>
-					</div>
-					<div class="experience-content">
-						<h3>{item.title}</h3>
-						<span>{item.period}</span>
-						<p class="description">{item.description}</p>
-					</div>
-				</div>
-			)
-		)}
-		</div>
-	</div>
+  <div class="container container-border">
+    <h2 class="section-title gradient-text">Experience</h2>
+    <div class="experience-list">
+      {
+        experiences.map((item) => (
+          <div class="experience-item">
+            <div class="experience-period">
+              <img
+                src={iconMap[item.company].src}
+                alt={item.company}
+                class="experience-icon"
+              />
+            </div>
+            <div class="experience-content">
+              <h3>{item.title}</h3>
+              <span>{item.period}</span>
+              <p class="description">{item.description}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
 </section>
 
 <style>
+  .experience {
+    background: rgba(0, 0, 0, 0.3);
+  }
 
-    .experience {
-        background: rgba(0, 0, 0, 0.3);
+  .experience-list {
+    margin: 0 auto;
+  }
+
+  .experience-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .experience-icon {
+    width: 100px;
+    height: 75px;
+    margin: 1rem;
+    margin-left: 2rem;
+    flex-shrink: 0;
+  }
+
+  .experience-item:last-child {
+    border-bottom: none;
+  }
+
+  .experience-period {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .experience-content h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: white;
+  }
+
+  .company {
+    color: #b3b3b3;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .description {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    margin-top: 0.5rem;
+    margin-left: 0;
+    text-align: justify;
+  }
+
+  @media (max-width: 768px) {
+    .experience-item {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding: 0 0;
     }
-    
-	.experience-list {
-		margin: 0 auto;
-	}
 
-	.experience-item {
-		display: grid;
-		grid-template-columns: 200px 1fr;
-		gap: 3rem;
-		padding: 2rem 0;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-	}
+    .experience-icon {
+      margin-left: 0rem;
+    }
 
-	.experience-icon {
-		width: 100px;
-		height: 75px;
-		margin: 1rem;
-		margin-left: 2rem;
-		flex-shrink: 0;
-  	}
+    .experience-period {
+      order: 2;
+    }
 
-	.experience-item:last-child {
-		border-bottom: none;
-	}
-
-	.experience-period {
-		color: rgba(255, 255, 255, 0.6);
-		font-size: 0.9rem;
-		font-weight: 500;
-	}
-
-	.experience-content h3 {
-		font-size: 1.5rem;
-		font-weight: 600;
-		margin-bottom: 0.5rem;
-		color: white;
-	}
-
-	.company {
-		color: #b3b3b3;
-		font-size: 1.2rem;
-		font-weight: 500;
-		margin-bottom: 1rem;
-	}
-
-	.description {
-		color: rgba(255, 255, 255, 0.7);
-		line-height: 1.6;
-		margin-top: 0.5rem;
-		margin-left: 0;
-		text-align: justify;
-	}
-
-	@media (max-width: 768px) {
-		.experience-item {
-			grid-template-columns: 1fr;
-			gap: 1rem;
-			padding: 0 0;
-		}
-
-		.experience-icon {
-			margin-left: 0rem;
-  		}
-		
-		.experience-period {
-			order: 2;
-		}
-		
-		.experience-content {
-			order: 1;
-		}
-	}
+    .experience-content {
+      order: 1;
+    }
+  }
 </style>
