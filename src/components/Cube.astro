@@ -1,5 +1,35 @@
 ---
-// 3D Cube component with perspective text
+import type { ImageMetadata } from "astro";
+import avatar from "../assets/hero/avatar.png";
+import IN from "../assets/icons/IN.svg";
+import SE from "../assets/icons/SE.svg";
+import values from "../content/values.json";
+
+const iconMap: Record<string, string> = {};
+
+// Load all icons (lazy importers)
+const importers = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/icons/*.{png,svg}",
+  { eager: false },
+);
+// Preload all modules upfront using Promise.all with top-level await
+const modules = await Promise.all(
+  values.map((value) => {
+    const key = `/src/assets/icons/${value.icon}.svg`;
+    const importer = importers[key];
+    if (!importer) {
+      console.warn(`Icon not found for ${value.icon}, using fallback.`);
+      return null;
+    }
+    return importer();
+  }),
+);
+// Map company icons to default image metadata
+modules.forEach((mod, i) => {
+  if (mod) {
+    iconMap[values[i].icon] = mod.default.src;
+  }
+});
 ---
 
 <section id="home" class="hero">
@@ -7,11 +37,26 @@
     <div class="cube-container">
       <div class="cube">
         <div class="face front">
-          <h2>SIMPLE</h2>
-          <p>BOLD</p>
+          <div class="quote-content" id="quoteContent">
+            <blockquote class="quote-text" id="quoteText">
+              Work is a reflection of self, make it worth showing.
+            </blockquote>
+            <div class="quote-attribution">
+              <cite class="quote-author" id="quoteAuthor">
+                職人気質 (Shokunin Kishitsu)
+              </cite>
+              <img
+                class="quote-origin"
+                id="quoteIcon"
+                src={iconMap[values[0].icon]}
+                alt="JP"
+                loading="lazy"
+              />
+            </div>
+          </div>
         </div>
         <div class="face right">
-          <h2>Hi I'm Nithin, an engineer who loves</h2>
+          <h2>Hi, I'm Nithin an engineer who loves</h2>
           <h2>--------------</h2>
           <h2>Craftsmanship</h2>
           <h2>Responsibility</h2>
@@ -19,7 +64,10 @@
           <h2>Wisdom</h2>
         </div>
         <div class="face top">
-          <h2>building awesome stuff!</h2>
+          <h2>
+            <span class="image-in">b</span>uildin<span class="image-se">g</span>
+            awesome stuff!
+          </h2>
         </div>
       </div>
     </div>
@@ -70,6 +118,7 @@
     padding: 10px;
     transform: translateZ(250px);
     text-align: left;
+    color: #898989;
   }
 
   .right {
@@ -78,6 +127,7 @@
     transform: rotateY(-90deg) rotateZ(-90deg) translateZ(250px);
     justify-content: right;
     text-align: right;
+    color: #d2d2d2;
   }
 
   .top {
@@ -86,6 +136,7 @@
     transform: rotateX(90deg) translateZ(250px);
     justify-content: left;
     text-align: left;
+    color: #f5f5f5;
   }
 
   .top h2 {
@@ -116,52 +167,77 @@
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   }
 
+  .quote-content {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .quote-text {
+    font-size: 2rem;
+    line-height: 1.2;
+    margin: 0 0 1rem 0;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  .quote-attribution {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    gap: 0.5rem;
+  }
+
+  .quote-author {
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  .quote-origin {
+    height: 20px;
+    align-self: center;
+    opacity: 0.7;
+  }
+
+  .image-in {
+    background-image: url(../assets/icons/IN.svg);
+    background-size: 180px;
+    background-position: center;
+    background-clip: text;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  .image-se {
+    background-image: url(../assets/icons/SE.svg);
+    background-size: 180px;
+    background-position: center;
+    background-clip: text;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
   /* Responsive adjustments */
+  @media (max-width: 1200px) {
+    .cube-container {
+      transform: scale(0.8);
+    }
+  }
+
   @media (max-width: 768px) {
-    .cube {
-      width: 150px;
-      height: 150px;
-    }
-
-    .face {
-      width: 150px;
-      height: 150px;
-    }
-
-    .front {
-      transform: translateZ(75px);
-    }
-
-    .right {
-      transform: rotateY(90deg) translateZ(75px);
-    }
-
-    .top {
-      transform: rotateX(90deg) translateZ(75px);
-    }
-
-    .face h2 {
-      font-size: 20px;
-    }
-
-    .face p {
-      font-size: 14px;
+    .cube-container {
+      transform: scale(0.6);
     }
   }
 
-  /* Animation on load */
-  @keyframes cubeIntro {
-    0% {
-      transform: rotateX(-15deg) rotateY(25deg) scale(0.8);
-      opacity: 0;
+  @media (max-width: 400px) {
+    .cube-container {
+      transform: scale(0.3);
     }
-    100% {
-      transform: rotateX(-15deg) rotateY(25deg) scale(1);
-      opacity: 1;
-    }
-  }
-
-  .cube {
-    animation: cubeIntro 1s ease-out;
   }
 </style>
