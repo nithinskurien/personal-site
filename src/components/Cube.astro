@@ -35,12 +35,6 @@ modules.forEach((mod, i) => {
 
 <section id="home" class="hero">
   <div class="container">
-    <div class="story-icons">
-      <img class="robot-icon" src={robot.src} alt="robot" loading="lazy" />
-      <img class="tele-icon" src={tele.src} alt="tele" loading="lazy" />
-      <img class="health-icon" src={health.src} alt="health" loading="lazy" />
-      <img class="car-icon" src={car.src} alt="car" loading="lazy" />
-    </div>
     <div class="cube-container">
       <div class="cube">
         <div class="face front">
@@ -64,17 +58,26 @@ modules.forEach((mod, i) => {
         </div>
         <div class="face right">
           <h2>Hi, I'm Nithin an engineer who loves</h2>
-          <h2>--------------</h2>
-          <h2>Craftsmanship</h2>
-          <h2>Responsibility</h2>
-          <h2>Aspiration</h2>
-          <h2>Wisdom</h2>
+          <h2>_______</h2>
+          <h3>Craftsmanship</h3>
+          <h3>Responsibility</h3>
+          <h3>Aspiration</h3>
+          <h3>Wisdom</h3>
         </div>
         <div class="face top">
           <h2>
-            <span class="image-in">b</span>uildin<span class="image-se">g</span>
-            awesome stuff!
+            To <span class="image-in">B</span>uil<span class="image-se">d</span>
+            cool stuff!
           </h2>
+          <img class="robot-icon" src={robot.src} alt="robot" loading="lazy" />
+          <img class="tele-icon" src={tele.src} alt="tele" loading="lazy" />
+          <img
+            class="health-icon"
+            src={health.src}
+            alt="health"
+            loading="lazy"
+          />
+          <img class="car-icon" src={car.src} alt="car" loading="lazy" />
         </div>
       </div>
     </div>
@@ -97,7 +100,7 @@ modules.forEach((mod, i) => {
     min-height: 400px;
     perspective: 3000px;
     perspective-origin: center center;
-    transform: scale(1);
+    transform: scale(1.25);
   }
 
   .cube {
@@ -123,8 +126,7 @@ modules.forEach((mod, i) => {
 
   .front {
     /*background: #333;*/
-    padding: 10px;
-    transform: translateZ(250px);
+    transform: translateZ(240px);
     text-align: left;
     color: #898989;
   }
@@ -148,21 +150,21 @@ modules.forEach((mod, i) => {
   }
 
   .top h2 {
-    font-size: 10rem;
+    font-size: 8rem;
   }
 
   .right h3 {
-    font-size: 2rem;
-    line-height: 2;
+    font-size: 2.5rem;
+    line-height: 1.5;
   }
 
   .right h2 {
-    font-size: 3rem;
+    font-size: 2.5rem;
+    line-height: 1.25;
   }
 
   .face h2 {
     margin: 0;
-    line-height: 1;
     margin-bottom: 8px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   }
@@ -241,18 +243,18 @@ modules.forEach((mod, i) => {
 
   .robot-icon {
     position: absolute;
-    top: 25%;
-    left: 40%;
-    width: 120px;
-    rotate: 16deg;
+    top: 21%;
+    left: 0%;
+    width: 180px;
+    rotate: 45deg;
   }
 
   .tele-icon {
     position: absolute;
     top: 20%;
     left: 50%;
-    width: 120px;
-    rotate: 0deg;
+    width: 180px;
+    rotate: 29deg;
   }
 
   .health-icon {
@@ -261,6 +263,7 @@ modules.forEach((mod, i) => {
     left: 70%;
     width: 100px;
     rotate: 19deg;
+    opacity: 0;
   }
 
   .car-icon {
@@ -269,6 +272,7 @@ modules.forEach((mod, i) => {
     left: 80%;
     width: 120px;
     rotate: 18deg;
+    opacity: 0;
   }
 
   /* Responsive adjustments */
