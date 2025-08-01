@@ -1,0 +1,167 @@
+---
+// 3D Cube component with perspective text
+---
+
+<section id="home" class="hero">
+  <div class="container">
+    <div class="cube-container">
+      <div class="cube">
+        <div class="face front">
+          <h2>SIMPLE</h2>
+          <p>BOLD</p>
+        </div>
+        <div class="face right">
+          <h2>Hi I'm Nithin, an engineer who loves</h2>
+          <h2>--------------</h2>
+          <h2>Craftsmanship</h2>
+          <h2>Responsibility</h2>
+          <h2>Aspiration</h2>
+          <h2>Wisdom</h2>
+        </div>
+        <div class="face top">
+          <h2>building awesome stuff!</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 0 4rem;
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  .cube-container {
+    min-height: 400px;
+    perspective: 3000px;
+    perspective-origin: center center;
+    transform: scale(1);
+  }
+
+  .cube {
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateX(-50deg) rotateY(35deg) rotateZ(20deg) translateX(-180px);
+    transition: transform 0.6s ease;
+  }
+
+  .face {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: white;
+    text-align: center;
+    line-height: 0.9;
+  }
+
+  .front {
+    /*background: #333;*/
+    padding: 10px;
+    transform: translateZ(250px);
+    text-align: left;
+  }
+
+  .right {
+    /*background: #555;*/
+    padding: 10px;
+    transform: rotateY(-90deg) rotateZ(-90deg) translateZ(250px);
+    justify-content: right;
+    text-align: right;
+  }
+
+  .top {
+    /*background: #777;*/
+    padding: 10px;
+    transform: rotateX(90deg) translateZ(250px);
+    justify-content: left;
+    text-align: left;
+  }
+
+  .top h2 {
+    font-size: 10rem;
+  }
+
+  .right h3 {
+    font-size: 2rem;
+    line-height: 2;
+  }
+
+  .right h2 {
+    font-size: 3rem;
+  }
+
+  .face h2 {
+    margin: 0;
+    line-height: 1;
+    margin-bottom: 8px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .face p {
+    margin: 0;
+    font-size: 16px;
+    opacity: 0.8;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .cube {
+      width: 150px;
+      height: 150px;
+    }
+
+    .face {
+      width: 150px;
+      height: 150px;
+    }
+
+    .front {
+      transform: translateZ(75px);
+    }
+
+    .right {
+      transform: rotateY(90deg) translateZ(75px);
+    }
+
+    .top {
+      transform: rotateX(90deg) translateZ(75px);
+    }
+
+    .face h2 {
+      font-size: 20px;
+    }
+
+    .face p {
+      font-size: 14px;
+    }
+  }
+
+  /* Animation on load */
+  @keyframes cubeIntro {
+    0% {
+      transform: rotateX(-15deg) rotateY(25deg) scale(0.8);
+      opacity: 0;
+    }
+    100% {
+      transform: rotateX(-15deg) rotateY(25deg) scale(1);
+      opacity: 1;
+    }
+  }
+
+  .cube {
+    animation: cubeIntro 1s ease-out;
+  }
+</style>
