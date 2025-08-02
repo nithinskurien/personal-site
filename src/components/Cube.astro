@@ -39,7 +39,7 @@ modules.forEach((mod, i) => {
 <section id="home" class="hero">
   <div class="container">
     <div class="cube-container">
-      <div class="cube">
+      <div class="cube" id="cubeBox">
         <div class="face front">
           <div class="quote-content" id="quoteContent">
             <blockquote class="quote-text" id="quoteText">
@@ -70,12 +70,12 @@ modules.forEach((mod, i) => {
           </div>
         </div>
         <div class="face top">
-          <h2 id="titleProgress">
+          <h2 class="flush-fill" id="titleProgress">
             <span class="title-fill">To</span>
             <span class="title-fill">Build</span>
             <span class="title-fill">cool</span>
             <span class="title-fill">stuff</span>
-            <span class="title-fill flush-handle">!</span>
+            <span class="title-fill flush-handle" id="flushHandle">!</span>
           </h2>
           <img
             class="play-icon"
@@ -122,7 +122,11 @@ modules.forEach((mod, i) => {
     position: relative;
     transform-style: preserve-3d;
     transform: rotateX(-50deg) rotateY(35deg) rotateZ(20deg) translateX(-180px);
-    transition: transform 0.6s ease;
+    transition: transform 1s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  }
+
+  .cube-flushed {
+    transform: rotateX(-60deg) rotateY(40deg) rotateZ(20deg) translateX(-180px);
   }
 
   .face {
@@ -168,18 +172,29 @@ modules.forEach((mod, i) => {
     font-size: 8rem;
   }
 
+  .flush-fill {
+    background: linear-gradient(45deg, yellow 100%, white 100%);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-clip: text;
+    color: #f5f5f5;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: background 0.3s linear;
+  }
+
   .title-fill {
     background: linear-gradient(to right, yellow 0%, white 0%);
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-clip: text;
+    color: #f5f5f5;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     transition: background 0.3s linear;
   }
 
   .flush-handle {
-    position: relative;
     display: inline-block;
     transform-origin: center bottom;
   }
@@ -297,6 +312,31 @@ modules.forEach((mod, i) => {
     opacity: 0;
   }
 
+  .shake-animation {
+    animation: springyShake 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  @keyframes springyShake {
+    0% {
+      transform: rotate(0deg);
+    }
+    15% {
+      transform: rotate(10deg);
+    }
+    50% {
+      transform: rotate(15deg);
+    }
+    75% {
+      transform: rotate(0deg);
+    }
+    90% {
+      transform: rotate(-10deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+
   /* Responsive adjustments */
   @media (max-width: 1200px) {
     .cube-container {
@@ -320,6 +360,9 @@ modules.forEach((mod, i) => {
 <script type="module" define:vars={{ story, values, iconMap }}>
   const playButton = document.getElementById("playButton");
   const dynamicText = document.getElementById("quoteText");
+  const flushHandle = document.getElementById("flushHandle");
+  const cubeBox = document.getElementById("cubeBox");
+  const title = document.getElementById("titleProgress");
   const lines = Array.from(document.querySelectorAll(".title-fill"));
   const quoteAuthor = document.getElementById("quoteAuthor");
   const quoteIcon = document.getElementById("quoteIcon");
@@ -391,21 +434,77 @@ modules.forEach((mod, i) => {
     });
   }
 
+  function animateBoxFlush() {
+    return new Promise((resolve) => {
+      let startTime;
+      const duration = 2000;
+      lines.forEach((line) => {
+        line.classList.remove("title-fill");
+        line.style.background = "";
+      });
+      function step(timestamp) {
+        if (playing == false) resolve();
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        title.style.background = `linear-gradient(45deg, yellow ${(1 - progress) * 100}%, white ${(1 - progress) * 100}%)`;
+        title.style.backgroundClip = "text";
+
+        if (progress < 1) {
+          const id = requestAnimationFrame(step);
+          animationFrameIds.push(id);
+        } else {
+          title.classList.add("flush-fill");
+          resolve();
+        }
+      }
+
+      const id = requestAnimationFrame(step);
+      animationFrameIds.push(id);
+    });
+  }
+
+  async function animateExclamation() {
+    return new Promise((resolve) => {
+      if (playing == false) resolve();
+      flushHandle.classList.add("shake-animation");
+      setTimeout(() => {
+        flushHandle.classList.remove("shake-animation");
+        resolve();
+      }, 1000);
+    });
+  }
+
+  async function animateFlushHandle() {
+    return new Promise((resolve) => {
+      if (playing == false) resolve();
+      cubeBox.classList.add("cube-flushed");
+      setTimeout(() => {
+        cubeBox.classList.remove("cube-flushed");
+        resolve();
+      }, 2000);
+    });
+  }
+
   async function animateTitleLines(
     lines,
-    durationPerLine = 5000,
+    durationPerLine = 1000,
     delayBetween = 200,
   ) {
     for (let i = 0; i < lines.length; i++) {
       await animateLineFill(lines[i], durationPerLine);
       await new Promise((res) => setTimeout(res, delayBetween));
     }
+    await animateExclamation();
+    animateFlushHandle();
+    await animateBoxFlush();
+    await stopAnimation();
+    loopQuotes();
   }
 
   function stopAnimation() {
     animationFrameIds.forEach((id) => cancelAnimationFrame(id));
     animationFrameIds = [];
-
     lines.forEach((line) => {
       line.style.background = "";
     });
