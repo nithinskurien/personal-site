@@ -262,15 +262,6 @@ modules.forEach((mod, i) => {
     opacity: 0.7;
   }
 
-  .story-icons {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-    z-index: 2;
-  }
-
   .play-icon {
     position: absolute;
     width: 65px;
@@ -383,6 +374,9 @@ modules.forEach((mod, i) => {
     dynamicText.textContent = "";
     quoteAuthor.textContent = "";
     quoteIcon.style.opacity = 0;
+    headerMap.forEach((value) => {
+      value.classList.remove("highlighted-value");
+    });
   }
 
   function loopQuotes() {
@@ -390,6 +384,11 @@ modules.forEach((mod, i) => {
     quoteAuthor.textContent = values[0].philosophy;
     quoteIcon.scr = iconMap[values[0].icon];
     quoteIcon.style.opacity = 1;
+    if (previousQuoteIndex != null) {
+      headerMap
+        .get(values[previousQuoteIndex].id)
+        .classList.add("highlighted-value");
+    }
     quoteInterval = setInterval(() => {
       // Reset previous h2 color
       headerMap.forEach((value) => {
