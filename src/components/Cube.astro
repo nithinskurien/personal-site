@@ -337,16 +337,16 @@ modules.forEach((mod, i) => {
   let previousQuoteIndex = null;
 
   function resetUI() {
-    // Reset title fill
-    fill.style.backgroundSize = "0% 100%";
-    // Clear text and images
     dynamicText.textContent = "";
     quoteAuthor.textContent = "";
     quoteIcon.style.opacity = 0;
-    //imageArea.innerHTML = "";
   }
 
   function loopQuotes() {
+    dynamicText.textContent = values[0].quote;
+    quoteAuthor.textContent = values[0].philosophy;
+    quoteIcon.scr = iconMap[values[0].icon];
+    quoteIcon.style.opacity = 1;
     quoteInterval = setInterval(() => {
       // Reset previous h2 color
       headerMap.forEach((value) => {
@@ -402,13 +402,23 @@ modules.forEach((mod, i) => {
     }
   }
 
+  function stopAnimation() {
+    animationFrameIds.forEach((id) => cancelAnimationFrame(id));
+    animationFrameIds = [];
+
+    lines.forEach((line) => {
+      line.style.background = "";
+    });
+  }
+
   playButton.addEventListener("click", () => {
     clearInterval(quoteInterval);
-    resetUI();
     if (playing == true) {
       playing = false;
+      stopAnimation();
       loopQuotes();
     } else {
+      resetUI();
       playing = true;
       animateTitleLines(lines);
     }
