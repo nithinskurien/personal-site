@@ -1,0 +1,17 @@
+[
+  {
+    "text": "The engineer, set out on a journey to build robots.",
+    "image": "/images/valley.jpg",
+    "delay": 2000
+  },
+  {
+    "text": "Legends speak of voices in the wind.",
+    "image": "/images/wind.jpg",
+    "delay": 3000
+  },
+  {
+    "text": "A traveler wandered alone.",
+    "image": "/images/traveler.jpg",
+    "delay": 2500
+  }
+]

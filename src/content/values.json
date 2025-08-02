@@ -1,25 +1,25 @@
 [
   {
     "quote": "Work is a reflection of self, make it worth showing.",
-    "name": "Craftmanship",
+    "id": "craftsmanship",
     "philosophy": "職人気質 (Shokunin Kishitsu)",
     "icon": "JP"
   },
   {
-    "quote": "Pursue constant improvement not as an outcome, but as a way of being.",
-    "name": "Continous Improvement",
-    "philosophy": "Arête",
-    "icon": "GR"
-  },
-  {
     "quote": "Be responsible, because your work lives in the lives it touches.",
-    "name": "Responsibility",
+    "id": "responsibility",
     "philosophy": "Ubuntu",
     "icon": "ZA"
   },
   {
+    "quote": "Pursue constant improvement not as an outcome, but as a way of being.",
+    "id": "aspiration",
+    "philosophy": "Arête",
+    "icon": "GR"
+  },
+  {
     "quote": "Victory is won before the battle, by seeing clearly and positioning wisely.",
-    "name": "Analytical",
+    "id": "wisdom",
     "philosophy": "勢 (Sun Tzu’s Shi)",
     "icon": "CN"
   }

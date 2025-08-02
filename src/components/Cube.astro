@@ -4,7 +4,10 @@ import robot from "../assets/icons/Robot.png";
 import tele from "../assets/icons/Tele.png";
 import health from "../assets/icons/Health.png";
 import car from "../assets/icons/Car.png";
+import play from "../assets/icons/Play.svg";
+import stop from "../assets/icons/Stop.svg";
 import values from "../content/values.json";
+import story from "../content/story.json";
 
 const iconMap: Record<string, string> = {};
 
@@ -59,16 +62,23 @@ modules.forEach((mod, i) => {
         <div class="face right">
           <h2>Hi, I'm Nithin an engineer who loves</h2>
           <h2>_______</h2>
-          <h3>Craftsmanship</h3>
-          <h3>Responsibility</h3>
-          <h3>Aspiration</h3>
-          <h3>Wisdom</h3>
+          <div id="valueHeaders">
+            <h3 class="highlighted-value" id="craftsmanship">Craftsmanship</h3>
+            <h3 id="responsibility">Responsibility</h3>
+            <h3 id="aspiration">Aspiration</h3>
+            <h3 id="wisdom">Wisdom</h3>
+          </div>
         </div>
         <div class="face top">
-          <h2>
-            To <span class="image-in">B</span>uil<span class="image-se">d</span>
-            cool stuff!
-          </h2>
+          <h2>To Build cool stuff!</h2>
+          <h2 class="title-fill" id="titleProgress">To Build cool stuff!</h2>
+          <img
+            class="play-icon"
+            id="playButton"
+            src={play.src}
+            alt="play"
+            loading="lazy"
+          />
           <img class="robot-icon" src={robot.src} alt="robot" loading="lazy" />
           <img class="tele-icon" src={tele.src} alt="tele" loading="lazy" />
           <img
@@ -153,9 +163,28 @@ modules.forEach((mod, i) => {
     font-size: 8rem;
   }
 
+  .title-fill {
+    position: absolute;
+    color: yellow;
+    mask-image: linear-gradient(to right, black 0%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 0%, transparent 100%);
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-size: 0% 100%;
+    -webkit-mask-size: 0% 100%;
+    transition:
+      mask-size 0.2s linear,
+      -webkit-mask-size 0.2s linear;
+  }
+
   .right h3 {
     font-size: 2.5rem;
     line-height: 1.5;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .highlighted-value {
+    color: #fcce00ff;
   }
 
   .right h2 {
@@ -166,7 +195,6 @@ modules.forEach((mod, i) => {
   .face h2 {
     margin: 0;
     margin-bottom: 8px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   }
 
   .face p {
@@ -185,9 +213,9 @@ modules.forEach((mod, i) => {
   }
 
   .quote-text {
-    font-size: 2rem;
+    font-size: 1.8rem;
     line-height: 1.2;
-    margin: 0 0 1rem 0;
+    margin: 0 2rem 2rem 0;
     font-weight: 500;
     letter-spacing: -0.01em;
   }
@@ -212,26 +240,6 @@ modules.forEach((mod, i) => {
     opacity: 0.7;
   }
 
-  .image-in {
-    background-image: url(../assets/icons/IN.svg);
-    background-size: 180px;
-    background-position: center;
-    background-clip: text;
-    background-repeat: no-repeat;
-    -webkit-background-clip: text;
-    color: transparent;
-  }
-
-  .image-se {
-    background-image: url(../assets/icons/SE.svg);
-    background-size: 180px;
-    background-position: center;
-    background-clip: text;
-    background-repeat: no-repeat;
-    -webkit-background-clip: text;
-    color: transparent;
-  }
-
   .story-icons {
     position: absolute;
     top: 0;
@@ -241,20 +249,27 @@ modules.forEach((mod, i) => {
     z-index: 2;
   }
 
+  .play-icon {
+    position: absolute;
+    width: 65px;
+    top: 7.1%;
+    left: 22.4%;
+  }
+
   .robot-icon {
     position: absolute;
     top: 21%;
     left: 0%;
     width: 180px;
     rotate: 45deg;
+    opacity: 0;
   }
 
   .tele-icon {
     position: absolute;
     top: 20%;
     left: 50%;
-    width: 180px;
-    rotate: 29deg;
+    opacity: 0;
   }
 
   .health-icon {
@@ -294,3 +309,95 @@ modules.forEach((mod, i) => {
     }
   }
 </style>
+
+<script type="module" define:vars={{ story, values, iconMap }}>
+  const playButton = document.getElementById("playButton");
+  const dynamicText = document.getElementById("quoteText");
+  const quoteAuthor = document.getElementById("quoteAuthor");
+  const quoteIcon = document.getElementById("quoteIcon");
+  const imageArea = document.getElementById("image-area");
+  const fill = document.getElementById("titleProgress");
+  const valueHeaders = document.getElementById("valueHeaders");
+  const headerMap = new Map();
+  valueHeaders.querySelectorAll("h3").forEach((value) => {
+    headerMap.set(value.id.trim(), value);
+  });
+
+  let quoteIndex = 0;
+  let storyIndex = 0;
+  let quoteInterval = null;
+  let playing = false;
+  let previousQuoteIndex = null;
+
+  function resetUI() {
+    // Reset title fill
+    fill.style.backgroundSize = "0% 100%";
+    // Clear text and images
+    dynamicText.textContent = "";
+    //imageArea.innerHTML = "";
+  }
+
+  function loopQuotes() {
+    quoteInterval = setInterval(() => {
+      // Reset previous h2 color
+      headerMap.forEach((value) => {
+        value.classList.remove("highlighted-value");
+      });
+
+      const value = values[quoteIndex];
+      dynamicText.textContent = value.quote;
+      quoteAuthor.textContent = value.philosophy;
+      quoteIcon.src = iconMap[value.icon];
+      headerMap.get(value.id).classList.add("highlighted-value");
+
+      previousQuoteIndex = quoteIndex;
+      quoteIndex = (quoteIndex + 1) % values.length;
+    }, 4000);
+  }
+
+  function updateTitleProgress(percent) {
+    const clamped = Math.max(0, Math.min(100, percent));
+    fill.style.maskSize = `${clamped}% 100%`;
+    fill.style.webkitMaskSize = `${clamped}% 100%`;
+  }
+
+  async function playStory() {
+    clearInterval(quoteInterval);
+    resetUI();
+    playButton.disabled = true;
+
+    const totalDuration = story.reduce((acc, s) => acc + s.delay, 0);
+    let elapsed = 0;
+
+    for (const segment of story) {
+      dynamicText.textContent = segment.text;
+
+      const steps = 30;
+      for (let i = 0; i < steps; i++) {
+        const progress =
+          (elapsed + (i / steps) * segment.delay) / totalDuration;
+        updateTitleProgress(progress * 100);
+        await new Promise((res) => setTimeout(res, segment.delay / steps));
+      }
+
+      elapsed += segment.delay;
+    }
+
+    playButton.disabled = false;
+  }
+
+  playButton.addEventListener("click", () => {
+    clearInterval(quoteInterval);
+    resetUI();
+    if (playing == true) {
+      playing = false;
+      loopQuotes();
+    } else {
+      playing = true;
+      playStory();
+    }
+  });
+
+  // Start looping quotes initially
+  loopQuotes();
+</script>
